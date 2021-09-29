@@ -1,6 +1,12 @@
 import React, { useState } from 'react';
 import MapView from 'react-native-maps';
-import { Platform, View, Pressable, StyleSheet } from 'react-native';
+import {
+  Platform,
+  View,
+  Pressable,
+  Dimensions,
+  StyleSheet,
+} from 'react-native';
 import Constants from 'expo-constants';
 import {
   Accuracy,
@@ -8,6 +14,7 @@ import {
   watchPositionAsync,
 } from 'expo-location';
 import { MaterialIcons } from '@expo/vector-icons';
+import LocationMarker from './LocationMarker';
 
 const styles = StyleSheet.create({
   map: {
@@ -23,12 +30,14 @@ const styles = StyleSheet.create({
     borderRadius: 50,
   },
 });
+let { width, height } = Dimensions.get('window');
+const ASPECT_RATIO = width / height;
+const LATITUDE_DELTA = 12;
+const LONGITUDE_DELTA = LATITUDE_DELTA * ASPECT_RATIO;
 
-const regionFinland = {
+const initialLocation = {
   latitude: 64.170798,
   longitude: 25.939867,
-  latitudeDelta: 0,
-  longitudeDelta: 20,
 };
 
 const Maps = () => {
@@ -57,18 +66,17 @@ const Maps = () => {
       console.log('Error:-', error);
     }
   };
-
   return (
     <View style={StyleSheet.absoluteFillObject}>
-      <MapView style={styles.map} region={regionFinland}>
-        {location && (
-          <MapView.Marker
-            coordinate={{
-              latitude: location.latitude,
-              longitude: location.longitude,
-            }}
-          />
-        )}
+      <MapView
+        style={styles.map}
+        initialRegion={{
+          ...initialLocation,
+          latitudeDelta: LATITUDE_DELTA,
+          longitudeDelta: LONGITUDE_DELTA,
+        }}
+      >
+        {location && <LocationMarker coordinate={location} />}
       </MapView>
       <Pressable style={styles.myLocationButton} onPress={getCurrentPosition}>
         <MaterialIcons name="my-location" size={24} color="grey" />
