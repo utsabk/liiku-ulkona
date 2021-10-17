@@ -9,6 +9,9 @@ const LATITUDE_DELTA = 0.003;
 const LONGITUDE_DELTA = LATITUDE_DELTA * ASPECT_RATIO;
 
 const LocationMarker = ({ coordinate }) => {
+
+  console.log('Coordinate:-', coordinate);
+  
   const duration = 1000;
   const marker = useRef();
   const [coords] = useState(
@@ -22,12 +25,6 @@ const LocationMarker = ({ coordinate }) => {
 
   useEffect(() => {
     if (Platform.OS === 'android') {
-      console.log('Platform.OS', Platform.OS);
-
-      console.log('marker.current', marker.current);
-
-      console.log('Coordinates:', coords);
-
       if (marker.current) {
         marker.current.animateMarkerToCoordinate(
           {
