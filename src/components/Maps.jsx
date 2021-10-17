@@ -58,7 +58,6 @@ const Maps = () => {
       await watchPositionAsync(
         { accuracy: Accuracy.BestForNavigation, distanceInterval: 2000 },
         (position) => {
-          console.log('Position', position.coords);
           setLocation(position.coords);
         }
       );

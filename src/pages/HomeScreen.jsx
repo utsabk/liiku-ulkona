@@ -1,7 +1,7 @@
 import React from 'react';
 import { View, StyleSheet } from 'react-native';
 
-import Maps from './components/Maps';
+import Maps from '../components/Maps';
 
 const styles = StyleSheet.create({
   container: {
@@ -11,7 +11,7 @@ const styles = StyleSheet.create({
 });
 
 
-const Main = () => {
+const HomeScreen = () => {
   return (
     <View style={styles.container}>
       <Maps />
@@ -19,4 +19,4 @@ const Main = () => {
   );
 };
 
-export default Main;
+export default HomeScreen;
