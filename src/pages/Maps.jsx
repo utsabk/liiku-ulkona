@@ -14,7 +14,7 @@ import {
   watchPositionAsync,
 } from 'expo-location';
 import { MaterialIcons } from '@expo/vector-icons';
-import LocationMarker from './LocationMarker';
+import LocationMarker from '../components/LocationMarker';
 
 const styles = StyleSheet.create({
   map: {
