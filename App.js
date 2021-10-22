@@ -2,7 +2,7 @@ import React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { StatusBar } from 'react-native';
 import theme from './src/theme';
-import Routes from './src/Routes';
+import Routes from './src/navigation/MainStackNavigator';
 
 const App = () => {
   return (

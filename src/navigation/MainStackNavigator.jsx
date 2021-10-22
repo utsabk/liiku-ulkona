@@ -1,11 +1,11 @@
 import React from 'react';
 import { createStackNavigator } from '@react-navigation/stack';
 
-import Maps from './pages/Maps';
-import FavouritesScreen from './pages/FavouritesScreen';
-import QRScanScreen from './pages/QRScanScreen';
-import UserScreen from './pages/UserScreen';
-import HeaderBar from './components/HeaderBar';
+import Maps from '../screens/Maps';
+import FavouritesScreen from '../screens/FavouritesScreen';
+import QRScanScreen from '../screens/QRScanScreen';
+import UserScreen from '../screens/UserScreen';
+import HeaderBar from './HeaderBarNavigator';
 
 const Stack = createStackNavigator();
 
