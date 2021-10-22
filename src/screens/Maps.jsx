@@ -14,7 +14,7 @@ import {
   watchPositionAsync,
 } from 'expo-location';
 import { MaterialIcons } from '@expo/vector-icons';
-import LocationMarker from './LocationMarker';
+import LocationMarker from '../components/LocationMarker';
 
 const styles = StyleSheet.create({
   map: {
@@ -32,12 +32,12 @@ const styles = StyleSheet.create({
 });
 let { width, height } = Dimensions.get('window');
 const ASPECT_RATIO = width / height;
-const LATITUDE_DELTA = 12;
+const LATITUDE_DELTA = 0.5;
 const LONGITUDE_DELTA = LATITUDE_DELTA * ASPECT_RATIO;
 
 const initialLocation = {
-  latitude: 64.170798,
-  longitude: 25.939867,
+  latitude: 60.2205088,
+  longitude: 24.9379047,
 };
 
 const Maps = () => {

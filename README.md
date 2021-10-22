@@ -10,3 +10,10 @@ Liiku Ulkona is an application to promote and help people exercise/train for fre
 ## Prototype 
  [Prototype](https://www.figma.com/proto/uGG7AtMk3iSF5QewQ5c16v/Helbbo-Liiku-ulkona?node-id=37%3A287&scaling=min-zoom&page-id=37%3A285&starting-point-node-id=37%3A287
 )
+
+## App Flow 
+<p align="center">
+    <a href="http://">
+        <img src="./assets/appflow.png" >
+    </a>
+</p>
