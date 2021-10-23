@@ -1,8 +1,9 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import MapView from 'react-native-maps';
 import {
   Platform,
   View,
+  Text,
   Pressable,
   Dimensions,
   StyleSheet,
@@ -29,6 +30,19 @@ const styles = StyleSheet.create({
     elevation: 3,
     borderRadius: 50,
   },
+  circle: {
+    width: 30,
+    height: 30,
+    borderRadius: 30 / 2,
+    backgroundColor: 'red',
+  },
+  pinText: {
+    color: 'white',
+    fontWeight: 'bold',
+    textAlign: 'center',
+    fontSize: 20,
+    marginBottom: 10,
+  },
 });
 let { width, height } = Dimensions.get('window');
 const ASPECT_RATIO = width / height;
@@ -42,6 +56,7 @@ const initialLocation = {
 
 const Maps = () => {
   const [location, setLocation] = useState(null);
+  const [activities, setActivities] = useState();
 
   const getCurrentPosition = async () => {
     try {
@@ -66,6 +81,22 @@ const Maps = () => {
       console.log('Error:-', error);
     }
   };
+
+  const fetchActivities = async () => {
+    try {
+      const response = await fetch('http://10.0.0.60:8000/activity/');
+      const json = await response.json();
+
+      setActivities(json);
+    } catch (err) {
+      throw new Error('Error fetching resources from remote');
+    }
+  };
+
+  useEffect(() => {
+    fetchActivities();
+  }, []);
+
   return (
     <View style={StyleSheet.absoluteFillObject}>
       <MapView
@@ -77,6 +108,20 @@ const Maps = () => {
         }}
       >
         {location && <LocationMarker coordinate={location} />}
+        {activities &&
+          activities.map((activity, i) => (
+            <MapView.Marker
+              key={i}
+              coordinate={{
+                latitude: activity.coordinates.lat,
+                longitude: activity.coordinates.lon,
+              }}
+            >
+              <View style={styles.circle}>
+                <Text style={styles.pinText}>1</Text>
+              </View>
+            </MapView.Marker>
+          ))}
       </MapView>
       <Pressable style={styles.myLocationButton} onPress={getCurrentPosition}>
         <MaterialIcons name="my-location" size={24} color="grey" />
