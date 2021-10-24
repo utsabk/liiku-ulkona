@@ -12,10 +12,10 @@ const styles = StyleSheet.create({
   },
 });
 
-const RoundButton = ({ icon, handleClick }) => {
+const RoundButton = ({ icon, color, handleClick }) => {
   return (
     <Pressable style={styles.button} onPress={handleClick}>
-      <MaterialIcons name={icon} size={24} color="grey" />
+      <MaterialIcons name={icon} size={24} color={color} />
     </Pressable>
   );
 };

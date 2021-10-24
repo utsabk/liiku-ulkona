@@ -10,6 +10,7 @@ import {
 } from 'expo-location';
 import LocationMarker from '../components/LocationMarker';
 import RoundButton from '../components/RoundButton';
+import theme from '../theme';
 
 const styles = StyleSheet.create({
   map: {
@@ -70,8 +71,12 @@ const Maps = () => {
         {location && <LocationMarker coordinate={location} />}
       </MapView>
       <View style={styles.buttonContainer}>
-        <RoundButton icon="my-location" handleClick={getCurrentPosition} />
-        <RoundButton icon="search" />
+        <RoundButton
+          icon="my-location"
+          color="grey"
+          handleClick={getCurrentPosition}
+        />
+        <RoundButton icon="search" color={theme.colors.secondary} />
       </View>
     </View>
   );
