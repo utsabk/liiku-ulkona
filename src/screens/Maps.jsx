@@ -1,33 +1,24 @@
 import React, { useState } from 'react';
 import MapView from 'react-native-maps';
-import {
-  Platform,
-  View,
-  Pressable,
-  Dimensions,
-  StyleSheet,
-} from 'react-native';
+
+import { Platform, View, Dimensions, StyleSheet } from 'react-native';
 import Constants from 'expo-constants';
 import {
   Accuracy,
   requestForegroundPermissionsAsync,
   watchPositionAsync,
 } from 'expo-location';
-import { MaterialIcons } from '@expo/vector-icons';
 import LocationMarker from '../components/LocationMarker';
+import RoundButton from '../components/RoundButton';
 
 const styles = StyleSheet.create({
   map: {
     ...StyleSheet.absoluteFillObject,
   },
-  myLocationButton: {
-    backgroundColor: '#FFFFFF',
+  buttonContainer: {
     position: 'absolute',
-    bottom: '10%',
+    bottom: '15%',
     right: '5%',
-    padding: 15,
-    elevation: 3,
-    borderRadius: 50,
   },
 });
 let { width, height } = Dimensions.get('window');
@@ -78,9 +69,10 @@ const Maps = () => {
       >
         {location && <LocationMarker coordinate={location} />}
       </MapView>
-      <Pressable style={styles.myLocationButton} onPress={getCurrentPosition}>
-        <MaterialIcons name="my-location" size={24} color="grey" />
-      </Pressable>
+      <View style={styles.buttonContainer}>
+        <RoundButton icon="my-location" handleClick={getCurrentPosition} />
+        <RoundButton icon="search" />
+      </View>
     </View>
   );
 };
