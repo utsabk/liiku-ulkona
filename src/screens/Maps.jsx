@@ -1,7 +1,16 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import MapView from 'react-native-maps';
+import {
+  Platform,
+  View,
+  Text,
+  Pressable,
+  Dimensions,
+  StyleSheet,
+} from 'react-native';
 
-import { Platform, View, Dimensions, StyleSheet } from 'react-native';
+
+
 import Constants from 'expo-constants';
 import {
   Accuracy,
@@ -21,6 +30,19 @@ const styles = StyleSheet.create({
     bottom: '15%',
     right: '5%',
   },
+  circle: {
+    width: 30,
+    height: 30,
+    borderRadius: 30 / 2,
+    backgroundColor: 'red',
+  },
+  pinText: {
+    color: 'white',
+    fontWeight: 'bold',
+    textAlign: 'center',
+    fontSize: 20,
+    marginBottom: 10,
+  },
 });
 let { width, height } = Dimensions.get('window');
 const ASPECT_RATIO = width / height;
@@ -34,6 +56,7 @@ const initialLocation = {
 
 const Maps = ({navigation}) => {
   const [location, setLocation] = useState(null);
+  const [activities, setActivities] = useState();
 
   const getCurrentPosition = async () => {
     try {
@@ -59,7 +82,23 @@ const Maps = ({navigation}) => {
     }
   };
 
+  const fetchActivities = async () => {
+    try {
+      const response = await fetch('http://10.0.0.60:8000/activity/');
+      const json = await response.json();
+
+      setActivities(json);
+    } catch (err) {
+      throw new Error('Error fetching resources from remote');
+    }
+  };
+
+  useEffect(() => {
+    fetchActivities();
+  }, []);
+
   const handleSearch = () =>navigation.navigate('Search');
+
 
   return (
     <View style={StyleSheet.absoluteFillObject}>
@@ -72,6 +111,20 @@ const Maps = ({navigation}) => {
         }}
       >
         {location && <LocationMarker coordinate={location} />}
+        {activities &&
+          activities.map((activity, i) => (
+            <MapView.Marker
+              key={i}
+              coordinate={{
+                latitude: activity.coordinates.lat,
+                longitude: activity.coordinates.lon,
+              }}
+            >
+              <View style={styles.circle}>
+                <Text style={styles.pinText}>1</Text>
+              </View>
+            </MapView.Marker>
+          ))}
       </MapView>
       <View style={styles.buttonContainer}>
         <RoundButton
