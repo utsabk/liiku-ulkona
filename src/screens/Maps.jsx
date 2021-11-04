@@ -8,27 +8,27 @@ import {
   Dimensions,
   StyleSheet,
 } from 'react-native';
+
+
+
 import Constants from 'expo-constants';
 import {
   Accuracy,
   requestForegroundPermissionsAsync,
   watchPositionAsync,
 } from 'expo-location';
-import { MaterialIcons } from '@expo/vector-icons';
 import LocationMarker from '../components/LocationMarker';
+import RoundButton from '../components/RoundButton';
+import theme from '../theme';
 
 const styles = StyleSheet.create({
   map: {
     ...StyleSheet.absoluteFillObject,
   },
-  myLocationButton: {
-    backgroundColor: '#FFFFFF',
+  buttonContainer: {
     position: 'absolute',
-    bottom: '10%',
+    bottom: '15%',
     right: '5%',
-    padding: 15,
-    elevation: 3,
-    borderRadius: 50,
   },
   circle: {
     width: 30,
@@ -54,7 +54,7 @@ const initialLocation = {
   longitude: 24.9379047,
 };
 
-const Maps = () => {
+const Maps = ({navigation}) => {
   const [location, setLocation] = useState(null);
   const [activities, setActivities] = useState();
 
@@ -97,6 +97,9 @@ const Maps = () => {
     fetchActivities();
   }, []);
 
+  const handleSearch = () =>navigation.navigate('Search');
+
+
   return (
     <View style={StyleSheet.absoluteFillObject}>
       <MapView
@@ -123,9 +126,14 @@ const Maps = () => {
             </MapView.Marker>
           ))}
       </MapView>
-      <Pressable style={styles.myLocationButton} onPress={getCurrentPosition}>
-        <MaterialIcons name="my-location" size={24} color="grey" />
-      </Pressable>
+      <View style={styles.buttonContainer}>
+        <RoundButton
+          icon="my-location"
+          color="grey"
+          handleClick={getCurrentPosition}
+        />
+        <RoundButton icon="search" color={theme.colors.secondary} handleClick={handleSearch} />
+      </View>
     </View>
   );
 };
