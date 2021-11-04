@@ -7,10 +7,10 @@ import Routes from './src/navigation/MainStackNavigator';
 const App = () => {
   return (
     <>
-    <StatusBar backgroundColor={theme.colors.primary} />
-    <NavigationContainer>
-      <Routes />
-    </NavigationContainer>
+      <StatusBar backgroundColor={theme.colors.primary} />
+      <NavigationContainer>
+        <Routes />
+      </NavigationContainer>
     </>
   );
 };

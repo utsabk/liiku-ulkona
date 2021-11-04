@@ -7,7 +7,7 @@ const SearchBar = ({ navigation }) => {
 
   const onChangeSearch = (query) => setSearchQuery(query);
 
-  const handleBackPress = () => navigation.navigate('Maps');
+  const handleBackPress = () => navigation.navigate('Home');
 
   return (
     <HeaderAppbar>

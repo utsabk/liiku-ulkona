@@ -1,7 +1,7 @@
 import React from 'react';
 import { createStackNavigator } from '@react-navigation/stack';
 
-import Maps from '../screens/Maps';
+import HomeScreen from '../screens/HomeScreen';
 import FavouritesScreen from '../screens/FavouritesScreen';
 import QRScanScreen from '../screens/QRScanScreen';
 import UserScreen from '../screens/UserScreen';
@@ -13,10 +13,10 @@ const Stack = createStackNavigator();
 
 const Routes = () => {
   return (
-    <Stack.Navigator initialRouteName="Maps">
+    <Stack.Navigator initialRouteName="Home">
       <Stack.Screen
-        name="Maps"
-        component={Maps}
+        name="Home"
+        component={HomeScreen}
         options={{ header: (props) => <HeaderBar {...props} /> }}
       />
       <Stack.Screen name="QRScan" component={QRScanScreen} />
