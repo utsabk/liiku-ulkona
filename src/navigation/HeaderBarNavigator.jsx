@@ -1,17 +1,10 @@
 import * as React from 'react';
-import { StyleSheet, Platform } from 'react-native';
+import { StyleSheet } from 'react-native';
 import { Appbar } from 'react-native-paper';
-import Constants from 'expo-constants';
+import HeaderAppbar from '../components/HeaderAppbar';
 import theme from '../theme';
 
-const MARGIN_TOP = Platform.OS === 'ios' && {
-  marginTop: Constants.statusBarHeight,
-};
-
 const styles = StyleSheet.create({
-  appBarHeader: {
-    backgroundColor: theme.colors.white,
-  },
   appBarContent: {
     color: theme.colors.secondary,
     fontSize: theme.fontSizes.heading,
@@ -25,7 +18,7 @@ const HeaderBar = ({ navigation }) => {
   const handleUser = () => navigation.navigate('User');
 
   return (
-    <Appbar.Header statusBarHeight={0} style={[styles.appBarHeader, MARGIN_TOP]}>
+    <HeaderAppbar>
       <Appbar.Content titleStyle={styles.appBarContent} title="Liiku-ulkona" />
       <Appbar.Action
         icon="qrcode-scan"
@@ -45,7 +38,7 @@ const HeaderBar = ({ navigation }) => {
         color={theme.colors.secondary}
         onPress={handleUser}
       />
-    </Appbar.Header>
+    </HeaderAppbar>
   );
 };
 
