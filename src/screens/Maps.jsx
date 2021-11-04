@@ -32,7 +32,7 @@ const initialLocation = {
   longitude: 24.9379047,
 };
 
-const Maps = () => {
+const Maps = ({navigation}) => {
   const [location, setLocation] = useState(null);
 
   const getCurrentPosition = async () => {
@@ -58,6 +58,9 @@ const Maps = () => {
       console.log('Error:-', error);
     }
   };
+
+  const handleSearch = () =>navigation.navigate('Search');
+
   return (
     <View style={StyleSheet.absoluteFillObject}>
       <MapView
@@ -76,7 +79,7 @@ const Maps = () => {
           color="grey"
           handleClick={getCurrentPosition}
         />
-        <RoundButton icon="search" color={theme.colors.secondary} />
+        <RoundButton icon="search" color={theme.colors.secondary} handleClick={handleSearch} />
       </View>
     </View>
   );
