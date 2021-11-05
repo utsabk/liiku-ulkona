@@ -26,7 +26,7 @@ const HomeScreen = ({ navigation }) => {
   };
 
   useEffect(() => {
-    fetchActivities();
+   // fetchActivities();
   }, []);
 
   return (
