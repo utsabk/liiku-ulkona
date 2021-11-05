@@ -5,6 +5,7 @@ import SearchButton from '../components/SearchButton';
 import MyLocationButton from '../components/MyLocationButton';
 import Maps from '../components/Maps';
 import { CurrentLocationProvider } from '../CurrentLocationContext';
+import customFetch from '../services/fetch';
 
 const styles = StyleSheet.create({
   buttonContainer: {
@@ -14,18 +15,14 @@ const styles = StyleSheet.create({
   },
 });
 
+const URL = 'http://10.0.0.60:8000/activity/';
+
 const HomeScreen = ({ navigation }) => {
   const [activities, setActivities] = useState();
 
   const fetchActivities = async () => {
-    try {
-      const response = await fetch('http://10.0.0.60:8000/activity/');
-      const json = await response.json();
-
-      setActivities(json);
-    } catch (err) {
-      throw new Error('Error fetching resources from remote');
-    }
+    const activities = await customFetch(URL);
+    setActivities(activities);
   };
 
   useEffect(() => {
