@@ -3,6 +3,7 @@ import MapView from 'react-native-maps';
 import { View, Text, Dimensions, StyleSheet } from 'react-native';
 
 import { CurrentLocationContext } from '../CurrentLocationContext';
+import { ActivitiesContext } from '../ActivitiesContext';
 
 import LocationMarker from '../components/LocationMarker';
 
@@ -34,8 +35,11 @@ const initialLocation = {
   longitude: 24.9379047,
 };
 
-const Maps = ({ activities }) => {
+const Maps = () => {
   const [currentLocation] = useContext(CurrentLocationContext);
+
+  const [activities,] = useContext(ActivitiesContext);
+
 
   return (
     <View style={StyleSheet.absoluteFillObject}>

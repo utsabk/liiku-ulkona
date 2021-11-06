@@ -7,7 +7,6 @@ import QRScanScreen from '../screens/QRScanScreen';
 import UserScreen from '../screens/UserScreen';
 import SearchScreen from '../screens/SearchScreen';
 import HeaderBar from './HeaderBarNavigator';
-import SearchBar from '../components/SearchBar';
 
 const Stack = createStackNavigator();
 
@@ -25,7 +24,7 @@ const Routes = () => {
       <Stack.Screen
         name="Search"
         component={SearchScreen}
-        options={{ header: (props) => <SearchBar {...props} /> }}
+        options={{ headerShown: false }}
       />
     </Stack.Navigator>
   );
