@@ -20,9 +20,9 @@
     "react-native": "https://github.com/expo/react-native/archive/sdk-42.0.0.tar.gz",
     "react-native-barcode-mask": "^1.2.4",
     "react-native-gesture-handler": "~1.10.2",
+    "react-native-map-clustering": "^3.4.2",
     "react-native-maps": "0.28.0",
     "react-native-paper": "^4.9.2",
-    "react-native-svg": "^12.1.1",
     "react-native-web": "^0.17.1"
   },
   "devDependencies": {
