@@ -1,11 +1,11 @@
-import React, { useContext } from 'react';
-import MapView from 'react-native-maps';
+import React, { useContext, useRef, useEffect } from 'react';
+import MapView, { Marker } from 'react-native-maps';
 import { View, Text, Dimensions, StyleSheet } from 'react-native';
 
 import { CurrentLocationContext } from '../CurrentLocationContext';
 import { ActivitiesContext } from '../ActivitiesContext';
 
-import LocationMarker from '../components/LocationMarker';
+import LocationDot from '../components/LocationDot';
 
 const styles = StyleSheet.create({
   map: {
@@ -38,12 +38,29 @@ const initialLocation = {
 const Maps = () => {
   const [currentLocation] = useContext(CurrentLocationContext);
 
-  const [activities,] = useContext(ActivitiesContext);
+  const [activities] = useContext(ActivitiesContext);
 
+  const mapRef = useRef(null);
+
+  useEffect(() => {
+    if (mapRef.current) {
+      if (currentLocation) {
+        const newCamera = {
+          center: currentLocation,
+          zoom: 18,
+          heading: 0,
+          pitch: 0,
+          altitude: 5,
+        };
+        mapRef.current.animateCamera(newCamera, { duration: 1000 });
+      }
+    }
+  }, [currentLocation]);
 
   return (
     <View style={StyleSheet.absoluteFillObject}>
       <MapView
+        ref={mapRef}
         style={styles.map}
         initialRegion={{
           ...initialLocation,
@@ -51,7 +68,11 @@ const Maps = () => {
           longitudeDelta: LONGITUDE_DELTA,
         }}
       >
-        {currentLocation && <LocationMarker coordinate={currentLocation} />}
+        {currentLocation && (
+          <Marker coordinate={currentLocation}>
+            <LocationDot />
+          </Marker>
+        )}
         {activities &&
           activities.map((activity, i) => (
             <MapView.Marker

@@ -27,7 +27,6 @@ const MyLocationButton = () => {
       await watchPositionAsync(
         { accuracy: Accuracy.BestForNavigation, distanceInterval: 2000 },
         (position) => {
-          console.log('Position', position.coords);
           setCurrentLocation(position.coords);
         }
       );
