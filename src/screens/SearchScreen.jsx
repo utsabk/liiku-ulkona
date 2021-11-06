@@ -8,7 +8,7 @@ const SearchScreen = ({navigation}) => {
     <ActivityTypeProvider>
       <>
         <SearchBar navigation={navigation} />
-        <SearchList />
+        <SearchList navigation={navigation} />
       </>
     </ActivityTypeProvider>
   );
