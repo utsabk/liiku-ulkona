@@ -18,7 +18,7 @@ const HomeScreen = ({ navigation }) => {
   return (
     <View style={StyleSheet.absoluteFillObject}>
       <CurrentLocationProvider>
-        <Maps />
+        <Maps navigation={navigation} />
         <View style={styles.buttonContainer}>
           <MyLocationButton />
           <SearchButton navigation={navigation} />

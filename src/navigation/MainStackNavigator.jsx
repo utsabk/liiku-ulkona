@@ -6,6 +6,7 @@ import FavouritesScreen from '../screens/FavouritesScreen';
 import QRScanScreen from '../screens/QRScanScreen';
 import UserScreen from '../screens/UserScreen';
 import SearchScreen from '../screens/SearchScreen';
+import ActivityDetailsScreen from '../screens/ActivityDetailsScreen';
 import HeaderBar from './HeaderBarNavigator';
 
 const Stack = createStackNavigator();
@@ -21,6 +22,7 @@ const Routes = () => {
       <Stack.Screen name="QRScan" component={QRScanScreen} />
       <Stack.Screen name="Favourites" component={FavouritesScreen} />
       <Stack.Screen name="User" component={UserScreen} />
+      <Stack.Screen name="ActivityDetails" component={ActivityDetailsScreen} />
       <Stack.Screen
         name="Search"
         component={SearchScreen}
