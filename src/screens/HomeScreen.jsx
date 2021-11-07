@@ -14,14 +14,14 @@ const styles = StyleSheet.create({
   },
 });
 
-const HomeScreen = ({ navigation }) => {
+const HomeScreen = () => {
   return (
     <View style={StyleSheet.absoluteFillObject}>
       <CurrentLocationProvider>
-        <Maps navigation={navigation} />
+        <Maps  />
         <View style={styles.buttonContainer}>
           <MyLocationButton />
-          <SearchButton navigation={navigation} />
+          <SearchButton />
         </View>
       </CurrentLocationProvider>
     </View>

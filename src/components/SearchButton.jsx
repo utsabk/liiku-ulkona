@@ -1,8 +1,12 @@
 import React from 'react';
+import { useNavigation } from '@react-navigation/native';
 import RoundButton from './RoundButton';
 import theme from '../theme';
 
-const SearchButton = ({ navigation }) => {
+const SearchButton = () => {
+  
+  const navigation = useNavigation();
+
   const handleSearch = () => navigation.navigate('Search');
 
   return (

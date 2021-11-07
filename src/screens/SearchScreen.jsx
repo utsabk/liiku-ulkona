@@ -3,12 +3,12 @@ import SearchBar from '../components/SearchBar';
 import SearchList from '../components/SearchList';
 import { ActivityTypeProvider } from '../ActivityTypeContext';
 
-const SearchScreen = ({navigation}) => {
+const SearchScreen = () => {
   return (
     <ActivityTypeProvider>
       <>
-        <SearchBar navigation={navigation} />
-        <SearchList navigation={navigation} />
+        <SearchBar  />
+        <SearchList  />
       </>
     </ActivityTypeProvider>
   );

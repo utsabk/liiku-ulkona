@@ -1,15 +1,18 @@
 import React, { useState, useEffect, useContext } from 'react';
 import { SafeAreaView, FlatList } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
 import { ActivityTypeContext } from '../ActivityTypeContext';
 import { ActivitiesContext } from '../ActivitiesContext';
 import customFetch from '../services/fetch';
 import Item from './ListItem';
 
-const SearchList = ({ navigation }) => {
+const SearchList = () => {
   const [activityType] = useContext(ActivityTypeContext);
   const [, setActivities] = useContext(ActivitiesContext);
 
   const [selectedActivityType, setSelectedActivityType] = useState(null);
+
+  const navigation = useNavigation();
 
   const fetchActivityWithCode = async (typeCode) => {
     try {

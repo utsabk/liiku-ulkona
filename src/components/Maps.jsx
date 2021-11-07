@@ -1,8 +1,9 @@
 import React, { useState, useContext, useRef, useEffect } from 'react';
 import MapView from 'react-native-map-clustering';
 import { Marker } from 'react-native-maps';
-
 import { Dimensions, StyleSheet } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
+
 
 import { CurrentLocationContext } from '../CurrentLocationContext';
 import { ActivitiesContext } from '../ActivitiesContext';
@@ -24,7 +25,10 @@ const initialLocation = {
   longitude: 24.9379047,
 };
 
-const Maps = ({ navigation }) => {
+const Maps = () => {
+
+  const navigation = useNavigation();
+
   const [currentLocation] = useContext(CurrentLocationContext);
 
   const [activities] = useContext(ActivitiesContext);

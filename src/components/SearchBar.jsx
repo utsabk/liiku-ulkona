@@ -1,12 +1,15 @@
 import React, { useEffect, useContext } from 'react';
+import { useNavigation } from '@react-navigation/native';
 import { Searchbar, Appbar } from 'react-native-paper';
 import HeaderAppbar from './HeaderAppbar';
 import customFetch from '../services/fetch';
 import { ActivityTypeContext } from '../ActivityTypeContext';
 
-const SearchBar = ({ navigation }) => {
+const SearchBar = () => {
   const [searchQuery, setSearchQuery] = React.useState();
   const [, setActivityType] = useContext(ActivityTypeContext);
+
+  const navigation = useNavigation();
 
   const onChangeSearch = async (query) => {
     setSearchQuery(query);
