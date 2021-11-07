@@ -1,26 +1,34 @@
 import React, { useContext } from 'react';
-import { Text, View, StyleSheet } from 'react-native';
+import { View, Text, Linking } from 'react-native';
 import { ActivityDetailsContext } from '../ActivityDetailsContext';
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  text: {
-    marginTop: 50,
-    fontSize: 25,
-  },
-});
 
 const ActivityDetailsScreen = () => {
   const [activityDetails] = useContext(ActivityDetailsContext);
 
   console.log('actiivityDetails', activityDetails.name);
+  console.log('activityDetails.phoneNumber', activityDetails.phoneNumber);
+
   return (
-    <View style={styles.container}>
-      <Text style={styles.text}>Hello!</Text>
+    <View>
+      <Text>Name:{activityDetails.name || 'N/A'}</Text>
+      {activityDetails.properties.infoFi && (
+        <Text>Info:{activityDetails.properties.infoFi}</Text>
+      )}
+      <Text>
+        Address:
+        {`${activityDetails.location.address},${activityDetails.postalCode}${activityDetails.postalOffice}` ||
+          'N/A'}
+      </Text>
+      <Text>Phone:{activityDetails.phoneNumber || 'N/A'}</Text>
+      <Text>Email:{activityDetails.email || 'N/A'}</Text>
+      {activityDetails.www && (
+        <Text
+          style={{ color: 'blue' }}
+          onPress={() => Linking.openURL(activityDetails.www)}
+        >
+          Home page url
+        </Text>
+      )}
     </View>
   );
 };

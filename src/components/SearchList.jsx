@@ -4,7 +4,7 @@ import { useNavigation } from '@react-navigation/native';
 import { ActivityTypeContext } from '../ActivityTypeContext';
 import { ActivitiesContext } from '../ActivitiesContext';
 import customFetch from '../services/fetch';
-import Item from './ListItem';
+import Item from './SearchListItem';
 
 const SearchList = () => {
   const [activityType] = useContext(ActivityTypeContext);

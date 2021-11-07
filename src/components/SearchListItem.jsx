@@ -4,16 +4,15 @@ import theme from '../theme';
 
 const styles = StyleSheet.create({
   item: {
-    marginVertical: 8,
-    marginHorizontal: 16,
-    backgroundColor: theme.colors.secondary,
-    borderRadius:10,
-    
+    borderBottomColor: theme.colors.black,
+    borderBottomWidth: 1,
   },
   title: {
     fontSize: theme.fontSizes.subheading,
-    padding: 10,
-    color: theme.colors.white,
+    padding: 12,
+    marginHorizontal:8,
+    color: theme.colors.secondary,
+    fontWeight: theme.fontWeights.bold,
   },
 });
 
