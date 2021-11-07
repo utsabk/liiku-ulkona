@@ -22,7 +22,11 @@ const Routes = () => {
       <Stack.Screen name="QRScan" component={QRScanScreen} />
       <Stack.Screen name="Favourites" component={FavouritesScreen} />
       <Stack.Screen name="User" component={UserScreen} />
-      <Stack.Screen name="ActivityDetails" component={ActivityDetailsScreen} />
+      <Stack.Screen
+        name="ActivityDetails"
+        component={ActivityDetailsScreen}
+        options={{ title: 'Information' }}
+      />
       <Stack.Screen
         name="Search"
         component={SearchScreen}

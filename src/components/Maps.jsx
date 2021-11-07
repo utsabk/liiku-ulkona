@@ -6,6 +6,7 @@ import { Dimensions, StyleSheet } from 'react-native';
 
 import { CurrentLocationContext } from '../CurrentLocationContext';
 import { ActivitiesContext } from '../ActivitiesContext';
+import { ActivityDetailsContext } from '../ActivityDetailsContext';
 
 import { Ionicons } from '@expo/vector-icons';
 
@@ -27,6 +28,10 @@ const Maps = ({ navigation }) => {
   const [currentLocation] = useContext(CurrentLocationContext);
 
   const [activities] = useContext(ActivitiesContext);
+
+  const [activityDetails, setActivityDetails] = useContext(
+    ActivityDetailsContext
+  );
 
   const [selectedMarker, setSelectedMarker] = useState({});
 
@@ -51,11 +56,11 @@ const Maps = ({ navigation }) => {
     try {
       if (Id) {
         const result = await customFetch(
-          `http://lipas.cc.jyu.fi/api/sports-places/${Id}`
+          `http://lipas.cc.jyu.fi/api/sports-places/${Id}?lang=en
+          `
         );
         if (result) {
-          navigation.navigate('ActivityDetails');
-          console.log('activity', result);
+          setActivityDetails(result);
         }
       }
     } catch (err) {
@@ -69,6 +74,12 @@ const Maps = ({ navigation }) => {
 
   const handelMarkerPress = (activity) => {
     setSelectedMarker(activity);
+  };
+
+  const handelCalloutPress = () => {
+    if (activityDetails) {
+      navigation.navigate('ActivityDetails');
+    }
   };
 
   return (
@@ -87,13 +98,15 @@ const Maps = ({ navigation }) => {
         </Marker>
       )}
       {activities &&
-        activities.map((activity, i) => (
+        activities.map((activity) => (
           <CustomMarker
-            key={i}
-            onPress={() => handelMarkerPress(activity)}
+            key={activity._id}
+            activity={activity}
+            onMarkerPress={()=> handelMarkerPress(activity)}
+            onCalloutPress={handelCalloutPress}
             coordinate={{
-              latitude: activity.coordinates.lat,
-              longitude: activity.coordinates.lon,
+              latitude: activity.location.coordinates.lat,
+              longitude: activity.location.coordinates.lon,
             }}
           />
         ))}

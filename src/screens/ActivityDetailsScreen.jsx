@@ -1,5 +1,6 @@
-import React from 'react';
-import { Text, View, StyleSheet} from 'react-native';
+import React, { useContext } from 'react';
+import { Text, View, StyleSheet } from 'react-native';
+import { ActivityDetailsContext } from '../ActivityDetailsContext';
 
 const styles = StyleSheet.create({
   container: {
@@ -14,9 +15,12 @@ const styles = StyleSheet.create({
 });
 
 const ActivityDetailsScreen = () => {
+  const [activityDetails] = useContext(ActivityDetailsContext);
+
+  console.log('actiivityDetails', activityDetails.name);
   return (
     <View style={styles.container}>
-      <Text style={styles.text}>ActivityDetailsScreen!</Text>
+      <Text style={styles.text}>Hello!</Text>
     </View>
   );
 };

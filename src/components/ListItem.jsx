@@ -7,6 +7,8 @@ const styles = StyleSheet.create({
     marginVertical: 8,
     marginHorizontal: 16,
     backgroundColor: theme.colors.secondary,
+    borderRadius:10,
+    
   },
   title: {
     fontSize: theme.fontSizes.subheading,

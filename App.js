@@ -4,16 +4,19 @@ import { StatusBar } from 'react-native';
 import theme from './src/theme';
 import Routes from './src/navigation/MainStackNavigator';
 import { ActivitiesProvider } from './src/ActivitiesContext';
+import { ActivityDetailsProvider } from './src/ActivityDetailsContext';
 
 const App = () => {
   return (
     <ActivitiesProvider>
-      <>
-        <StatusBar backgroundColor={theme.colors.primary} />
-        <NavigationContainer>
-          <Routes />
-        </NavigationContainer>
-      </>
+      <ActivityDetailsProvider>
+        <>
+          <StatusBar backgroundColor={theme.colors.primary} />
+          <NavigationContainer>
+            <Routes />
+          </NavigationContainer>
+        </>
+      </ActivityDetailsProvider>
     </ActivitiesProvider>
   );
 };
