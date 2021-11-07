@@ -1,6 +1,10 @@
 import React, { useContext } from 'react';
-import { View, Text, Linking } from 'react-native';
+import { ScrollView } from 'react-native';
 import { ActivityDetailsContext } from '../ActivityDetailsContext';
+import ListItem from '../components/IconTextListItem';
+import ListHeader from '../components/HeaderListItem';
+import LinkListItem from '../components/IconLinkListItem';
+import TitleSubtitleListItem from '../components/TitleSubtitleListItem';
 
 const ActivityDetailsScreen = () => {
   const [activityDetails] = useContext(ActivityDetailsContext);
@@ -9,27 +13,45 @@ const ActivityDetailsScreen = () => {
   console.log('activityDetails.phoneNumber', activityDetails.phoneNumber);
 
   return (
-    <View>
-      <Text>Name:{activityDetails.name || 'N/A'}</Text>
-      {activityDetails.properties.infoFi && (
-        <Text>Info:{activityDetails.properties.infoFi}</Text>
-      )}
-      <Text>
-        Address:
-        {`${activityDetails.location.address},${activityDetails.postalCode}${activityDetails.postalOffice}` ||
-          'N/A'}
-      </Text>
-      <Text>Phone:{activityDetails.phoneNumber || 'N/A'}</Text>
-      <Text>Email:{activityDetails.email || 'N/A'}</Text>
-      {activityDetails.www && (
-        <Text
-          style={{ color: 'blue' }}
-          onPress={() => Linking.openURL(activityDetails.www)}
-        >
-          Home page url
-        </Text>
-      )}
-    </View>
+    <ScrollView style={{backgroundColor: 'white'}}>
+      <ListHeader title="General" />
+      <TitleSubtitleListItem subtitle={'Name'} title={activityDetails.name || 'N/A'} />
+      <TitleSubtitleListItem subtitle={'Description'} title={activityDetails.properties.infoFi || 'No description'} />
+
+      <ListHeader title="Ownership" />
+      <TitleSubtitleListItem
+        subtitle={'Owner'}
+        title={activityDetails.owner || 'N/A'}
+      />
+      <TitleSubtitleListItem
+        subtitle={'Admin'}
+        title={activityDetails.admin || 'N/A'}
+      />
+
+
+      <ListHeader title="Contact information" />
+      <ListItem
+        icon={'location-pin'}
+        title={
+          `${activityDetails.location.address
+          }, ${
+            activityDetails.location.postalCode ? activityDetails.location.postalCode : ''
+          } ${
+            activityDetails.location.postalOffice ? activityDetails.location.postalOffice : ''
+          }` || 'No location provided'
+        }
+      />
+      <ListItem
+        icon={'phone-enabled'}
+        title={activityDetails.phoneNumber || 'No phone provided'}
+      />
+      <ListItem
+        icon={'email'}
+        title={activityDetails.email || 'No email provided'}
+      />
+      <LinkListItem icon={'link'} title={activityDetails.www} />
+
+    </ScrollView>
   );
 };
 
