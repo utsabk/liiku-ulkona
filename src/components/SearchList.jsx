@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useContext } from 'react';
-import { TouchableOpacity, SafeAreaView, FlatList } from 'react-native';
+import { TouchableOpacity, SafeAreaView, FlatList, Alert } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { ActivityTypeContext } from '../ActivityTypeContext';
 import { ActivitiesContext } from '../ActivitiesContext';
@@ -24,7 +24,7 @@ const SearchList = () => {
           setActivities(results);
           navigation.navigate('Home'); // Navigate to home page
         } else {
-          alert('No such activities in this region');
+          Alert.alert('Error', 'No such activities in this region');
         }
       }
     } catch (err) {
@@ -46,7 +46,7 @@ const SearchList = () => {
   );
 
   return (
-    <SafeAreaView style={{ flex: 1 }}>
+    <SafeAreaView>
       {activityType && (
         <FlatList
           data={activityType}

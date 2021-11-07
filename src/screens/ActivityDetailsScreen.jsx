@@ -8,10 +8,6 @@ import TitleSubtitleListItem from '../components/TitleSubtitleListItem';
 
 const ActivityDetailsScreen = () => {
   const [activityDetails] = useContext(ActivityDetailsContext);
-
-  console.log('actiivityDetails', activityDetails.name);
-  console.log('activityDetails.phoneNumber', activityDetails.phoneNumber);
-
   return (
     <ScrollView style={{backgroundColor: 'white'}}>
       <ListHeader title="General" />
