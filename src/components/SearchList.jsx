@@ -1,10 +1,10 @@
 import React, { useState, useEffect, useContext } from 'react';
-import { SafeAreaView, FlatList } from 'react-native';
+import { TouchableOpacity, SafeAreaView, FlatList } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { ActivityTypeContext } from '../ActivityTypeContext';
 import { ActivitiesContext } from '../ActivitiesContext';
 import customFetch from '../services/fetch';
-import Item from './ListItem';
+import IconTextListItem from './IconTextListItem';
 
 const SearchList = () => {
   const [activityType] = useContext(ActivityTypeContext);
@@ -37,25 +37,24 @@ const SearchList = () => {
   }, [selectedActivityType]);
 
   const renderItem = ({ item }) => (
-    <Item
+    <TouchableOpacity
       item={item}
       onPress={() => setSelectedActivityType(item.typeCode)}
-      title={item.name}
-    />
+    >
+      <IconTextListItem icon={'search'} title={item.name} />
+    </TouchableOpacity>
   );
 
   return (
-    <>
-      <SafeAreaView style={{ flex: 1 }}>
-        {activityType && (
-          <FlatList
-            data={activityType}
-            renderItem={renderItem}
-            keyExtractor={(item) => item._id}
-          />
-        )}
-      </SafeAreaView>
-    </>
+    <SafeAreaView style={{ flex: 1 }}>
+      {activityType && (
+        <FlatList
+          data={activityType}
+          renderItem={renderItem}
+          keyExtractor={(item) => item._id}
+        />
+      )}
+    </SafeAreaView>
   );
 };
 
