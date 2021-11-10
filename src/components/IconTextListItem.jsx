@@ -25,7 +25,7 @@ const styles = StyleSheet.create({
   },
 });
 
-const ListItem = ({ icon, title }) => (
+const ListItem = ({ icon, title, handleIconPress }) => (
   <View style={styles.container}>
     {icon && (
       <MaterialIcons
@@ -33,6 +33,7 @@ const ListItem = ({ icon, title }) => (
         name={icon}
         size={30}
         color={theme.colors.secondary}
+        onPress={handleIconPress}
       />
     )}
     {title && (

@@ -50,7 +50,7 @@ const Maps = () => {
           pitch: 0,
           altitude: 5,
         };
-        mapRef.current.animateCamera(newCamera, { duration: 1000 });
+        mapRef.current.animateCamera(newCamera, { duration: 2000 });
       }
     }
   }, [userLocation]);
@@ -69,10 +69,12 @@ const Maps = () => {
   useEffect(() => {
     const newCamera = {
       center: initialLocation,
-      zoom: 10,
       heading: 0,
       pitch: 0,
-      altitude: 5,
+      // Only when using Google Maps.
+      zoom: 10,
+      // Only on iOS MapKit, in meters. The property is ignored by Google Maps.
+      altitude: 50000,
     };
     mapRef.current.animateCamera(newCamera, { duration: 1800 });
   }, [activities]);

@@ -5,6 +5,8 @@ import {
 } from '../types';
 import customFetch from '../../services/fetch';
 
+const API_URL = 'http://192.168.238.28:8000/activity/';
+
 export const setResponse = (action, result) => {
   return {
     type: action,
@@ -16,9 +18,7 @@ export const getActivityTypesList = (query) => {
   return async (dispatch) => {
     try {
       if (query) {
-        const results = await customFetch(
-          `http://10.0.0.60:8000/activity/type/?name=${query}`
-        );
+        const results = await customFetch(`${API_URL}type/?name=${query}`);
         await dispatch(setResponse(GET_ACTIVITY_TYPES, results));
 
         return results || [];
@@ -33,9 +33,7 @@ export const getActivitiesList = (typeCode) => {
   return async (dispatch) => {
     try {
       if (typeCode) {
-        const results = await customFetch(
-          `http://10.0.0.60:8000/activity/code/?code=${typeCode}`
-        );
+        const results = await customFetch(`${API_URL}code/?code=${typeCode}`);
         if (!results.length) {
           alert('No such activities in this region');
         }

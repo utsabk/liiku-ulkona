@@ -15,11 +15,7 @@ const MyLocationButton = () => {
 
   const getCurrentPosition = async () => {
     try {
-      if (Platform.OS === 'android' && !Constants.isDevice) {
-        throw new Error(
-          'Oops, This will not work in an Android emulator. Try it on your device!'
-        );
-      }
+    
       let { status } = await requestForegroundPermissionsAsync();
       if (status !== 'granted') {
         throw new Error('Permission to access location was denied');

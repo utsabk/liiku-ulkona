@@ -1,7 +1,7 @@
 import React from 'react';
-import { ScrollView } from 'react-native';
+import { ScrollView, Platform, Linking } from 'react-native';
 import { useSelector } from 'react-redux';
-import ListItem from '../components/IconTextListItem';
+import IconListItem from '../components/IconTextListItem';
 import ListHeader from '../components/HeaderListItem';
 import LinkListItem from '../components/IconLinkListItem';
 import TitleSubtitleListItem from '../components/TitleSubtitleListItem';
@@ -12,6 +12,45 @@ const ActivityDetailsScreen = () => {
       activityDetails: state.activity.activityDetails,
     };
   });
+
+  console.log(activityDetails);
+  const { userLocation } = useSelector((state) => state.location);
+
+  const handlePhonePress = (number) => {
+    if (number) Linking.openURL(number);
+  };
+
+  const handleMailPress = (email) => {
+    if (email) {
+      return Linking.openURL(`mailto:${email}`);
+    }
+  };
+
+  const handleMapPinPress = (userLocation, destinationLocation) => {
+    const origin = userLocation
+      ? encodeURIComponent(`${userLocation.latitude},${userLocation.longitude}`)
+      : '';
+
+    const destination = destinationLocation
+      ? encodeURIComponent(
+          `${destinationLocation.lat},${destinationLocation.lon}`
+        )
+      : '';
+
+    let url = Platform.select({
+      ios: `http://maps.apple.com/?saddr==${origin}&daddr=${destination}`,
+      android: `https://www.google.com/maps/dir/?api=1&origin=${origin}&destination=${destination}`,
+    });
+
+    Linking.openURL(url);
+  };
+
+  const handleLinkPress = (link) => {
+    if (link) {
+      return Linking.openURL(link);
+    }
+  };
+
   return (
     <ScrollView style={{ backgroundColor: 'white' }}>
       <ListHeader title="General" />
@@ -37,8 +76,8 @@ const ActivityDetailsScreen = () => {
       />
 
       <ListHeader title="Contact information" />
-      <ListItem
-        icon={'location-pin'}
+      <IconListItem
+        icon={'assistant-direction'}
         title={
           `${activityDetails.location.address}, ${
             activityDetails.location.postalCode
@@ -50,16 +89,28 @@ const ActivityDetailsScreen = () => {
               : ''
           }` || 'No location provided'
         }
+        handleIconPress={() =>
+          handleMapPinPress(
+            userLocation,
+            activityDetails.location.coordinates.wgs84
+          )
+        }
       />
-      <ListItem
+      <IconListItem
         icon={'phone-enabled'}
         title={activityDetails.phoneNumber || 'No phone provided'}
+        handleIconPress={() => handlePhonePress(activityDetails.phoneNumber)}
       />
-      <ListItem
+      <IconListItem
         icon={'email'}
         title={activityDetails.email || 'No email provided'}
+        handleIconPress={() => handleMailPress(activityDetails.email)}
       />
-      <LinkListItem icon={'link'} title={activityDetails.www} />
+      <LinkListItem
+        icon={'link'}
+        title={activityDetails.www}
+        handleIconPress={() => handleLinkPress(activityDetails.www)}
+      />
     </ScrollView>
   );
 };
