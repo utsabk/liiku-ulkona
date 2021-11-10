@@ -3,7 +3,7 @@ import { useNavigation } from '@react-navigation/native';
 import { Searchbar, Appbar } from 'react-native-paper';
 import { useDispatch } from 'react-redux';
 import HeaderAppbar from './HeaderAppbar';
-import { getActivityTypesList } from '../store/actions/activityTypesList';
+import { getActivityTypesList } from '../store/actions/activity';
 
 const SearchBar = () => {
   const [searchQuery, setSearchQuery] = React.useState();

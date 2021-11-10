@@ -3,10 +3,9 @@ import MapView from 'react-native-map-clustering';
 import { Marker } from 'react-native-maps';
 import { Dimensions, StyleSheet } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
-
+import { useSelector } from 'react-redux';
 
 import { CurrentLocationContext } from '../CurrentLocationContext';
-import { ActivitiesContext } from '../ActivitiesContext';
 import { ActivityDetailsContext } from '../ActivityDetailsContext';
 
 import { Ionicons } from '@expo/vector-icons';
@@ -26,12 +25,16 @@ const initialLocation = {
 };
 
 const Maps = () => {
-
   const navigation = useNavigation();
 
   const [currentLocation] = useContext(CurrentLocationContext);
 
-  const [activities] = useContext(ActivitiesContext);
+  const { activities } = useSelector((state) => {
+    return {
+      activities: state.activity.activitiesList,
+    };
+  });
+  //const [activities] = useContext(ActivitiesContext);
 
   const [activityDetails, setActivityDetails] = useContext(
     ActivityDetailsContext
@@ -106,7 +109,7 @@ const Maps = () => {
           <CustomMarker
             key={activity._id}
             activity={activity}
-            onMarkerPress={()=> handelMarkerPress(activity)}
+            onMarkerPress={() => handelMarkerPress(activity)}
             onCalloutPress={handelCalloutPress}
             coordinate={{
               latitude: activity.location.coordinates.lat,

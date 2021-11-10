@@ -1,11 +1,11 @@
 import { createStore, combineReducers, applyMiddleware } from 'redux';
 
-import activityTypesReducer from './reducers/activityTypesReducer';
+import activityReducer from './reducers/activityReducer';
 
 import thunk from 'redux-thunk';
 
 const rootReducer = combineReducers({
-  activityTypesList: activityTypesReducer,
+  activity: activityReducer,
 });
 
 const configureStore = () => {
