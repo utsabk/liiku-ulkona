@@ -1,8 +1,9 @@
-import { GET_ACTIVITY_TYPES, GET_ACTIVITIES_WITH_CODE_TYPE } from '../types';
+import { GET_ACTIVITY_TYPES, GET_ACTIVITIES_WITH_CODE_TYPE,GET_ACTIVITY_WITH_ID } from '../types';
 
 const initialState = {
   activityTypesList: [],
   activitiesList: [],
+  activityDetails:{}
 };
 
 const activityReducer = (state = initialState, action) => {
@@ -16,6 +17,11 @@ const activityReducer = (state = initialState, action) => {
       return {
         ...state,
         activitiesList: action.payload,
+      };
+      case GET_ACTIVITY_WITH_ID:
+      return {
+        ...state,
+        activityDetails: action.payload,
       };
 
     default:

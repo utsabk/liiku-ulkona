@@ -1,10 +1,14 @@
-import { GET_ACTIVITY_TYPES, GET_ACTIVITIES_WITH_CODE_TYPE } from '../types';
+import {
+  GET_ACTIVITY_TYPES,
+  GET_ACTIVITIES_WITH_CODE_TYPE,
+  GET_ACTIVITY_WITH_ID,
+} from '../types';
 import customFetch from '../../services/fetch';
 
-export const setActivityList = (action, list) => {
+export const setResponse = (action, response) => {
   return {
     type: action,
-    payload: list,
+    payload: response,
   };
 };
 
@@ -15,7 +19,7 @@ export const getActivityTypesList = (query) => {
         const results = await customFetch(
           `http://10.0.0.60:8000/activity/type/?name=${query}`
         );
-        await dispatch(setActivityList(GET_ACTIVITY_TYPES, results));
+        await dispatch(setResponse(GET_ACTIVITY_TYPES, results));
 
         return results || [];
       }
@@ -35,8 +39,24 @@ export const getActivitiesList = (typeCode) => {
         if (!results.length) {
           alert('No such activities in this region');
         }
-        await dispatch(setActivityList(GET_ACTIVITIES_WITH_CODE_TYPE, results));
+        await dispatch(setResponse(GET_ACTIVITIES_WITH_CODE_TYPE, results));
         return results || [];
+      }
+    } catch (err) {
+      throw new Error(err);
+    }
+  };
+};
+
+export const getActivityWithId = (Id) => {
+  return async (dispatch) => {
+    try {
+      if (Id) {
+        const result = await customFetch(
+          `http://lipas.cc.jyu.fi/api/sports-places/${Id}?lang=en`
+        );
+        await dispatch(setResponse(GET_ACTIVITY_WITH_ID, result));
+        return result || {};
       }
     } catch (err) {
       throw new Error(err);

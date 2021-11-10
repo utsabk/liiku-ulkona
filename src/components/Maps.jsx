@@ -3,16 +3,14 @@ import MapView from 'react-native-map-clustering';
 import { Marker } from 'react-native-maps';
 import { Dimensions, StyleSheet } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { getActivityWithId } from '../store/actions/activity';
 
 import { CurrentLocationContext } from '../CurrentLocationContext';
-import { ActivityDetailsContext } from '../ActivityDetailsContext';
 
 import { Ionicons } from '@expo/vector-icons';
 
 import CustomMarker from './CustomMarker';
-
-import customFetch from '../services/fetch';
 
 let { width, height } = Dimensions.get('window');
 const ASPECT_RATIO = width / height;
@@ -25,8 +23,11 @@ const initialLocation = {
 };
 
 const Maps = () => {
+  const dispatch = useDispatch();
+  const mapRef = useRef(null);
   const navigation = useNavigation();
 
+  const [selectedMarker, setSelectedMarker] = useState({});
   const [currentLocation] = useContext(CurrentLocationContext);
 
   const { activities } = useSelector((state) => {
@@ -34,15 +35,11 @@ const Maps = () => {
       activities: state.activity.activitiesList,
     };
   });
-  //const [activities] = useContext(ActivitiesContext);
-
-  const [activityDetails, setActivityDetails] = useContext(
-    ActivityDetailsContext
-  );
-
-  const [selectedMarker, setSelectedMarker] = useState({});
-
-  const mapRef = useRef(null);
+  const { activityDetails } = useSelector((state) => {
+    return {
+      activityDetails: state.activity.activityDetails,
+    };
+  });
 
   useEffect(() => {
     if (mapRef.current) {
@@ -59,19 +56,9 @@ const Maps = () => {
     }
   }, [currentLocation]);
 
-  const fetchActivityWithId = async (Id) => {
-    try {
-      if (Id) {
-        const result = await customFetch(
-          `http://lipas.cc.jyu.fi/api/sports-places/${Id}?lang=en
-          `
-        );
-        if (result) {
-          setActivityDetails(result);
-        }
-      }
-    } catch (err) {
-      throw new Error('Error fetching activity with Id');
+  const fetchActivityWithId = (Id) => {
+    if (Id) {
+      dispatch(getActivityWithId(Id));
     }
   };
 
