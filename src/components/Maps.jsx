@@ -1,14 +1,12 @@
-import React, { useState, useContext, useRef, useEffect } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import MapView from 'react-native-map-clustering';
 import { Marker } from 'react-native-maps';
+import { Ionicons } from '@expo/vector-icons';
 import { Dimensions, StyleSheet } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { useDispatch, useSelector } from 'react-redux';
 import { getActivityWithId } from '../store/actions/activity';
 
-import { CurrentLocationContext } from '../CurrentLocationContext';
-
-import { Ionicons } from '@expo/vector-icons';
 
 import CustomMarker from './CustomMarker';
 
@@ -28,7 +26,8 @@ const Maps = () => {
   const navigation = useNavigation();
 
   const [selectedMarker, setSelectedMarker] = useState({});
-  const [currentLocation] = useContext(CurrentLocationContext);
+
+  const { userLocation } = useSelector((state) => state.location);
 
   const { activities } = useSelector((state) => {
     return {
@@ -43,9 +42,9 @@ const Maps = () => {
 
   useEffect(() => {
     if (mapRef.current) {
-      if (currentLocation) {
+      if (userLocation) {
         const newCamera = {
-          center: currentLocation,
+          center: userLocation,
           zoom: 18,
           heading: 0,
           pitch: 0,
@@ -54,7 +53,7 @@ const Maps = () => {
         mapRef.current.animateCamera(newCamera, { duration: 1000 });
       }
     }
-  }, [currentLocation]);
+  }, [userLocation]);
 
   const fetchActivityWithId = (Id) => {
     if (Id) {
@@ -86,8 +85,8 @@ const Maps = () => {
         longitudeDelta: LONGITUDE_DELTA,
       }}
     >
-      {currentLocation && (
-        <Marker coordinate={currentLocation}>
+      {userLocation && (
+        <Marker coordinate={userLocation}>
           <Ionicons name="ios-location" size={36} color="blue" />
         </Marker>
       )}

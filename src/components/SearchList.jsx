@@ -16,7 +16,7 @@ const SearchList = () => {
 
   const navigation = useNavigation();
 
-  const fetchActivityWithCode = (typeCode) => {
+  const fetchActivitiesWithCode = (typeCode) => {
     if (typeCode) {
       dispatch(getActivitiesList(typeCode));
       navigation.navigate('Home'); // Navigate to home page
@@ -24,7 +24,7 @@ const SearchList = () => {
   };
 
   useEffect(() => {
-    fetchActivityWithCode(selectedActivityType);
+    fetchActivitiesWithCode(selectedActivityType);
   }, [selectedActivityType]);
 
   const renderItem = ({ item }) => (

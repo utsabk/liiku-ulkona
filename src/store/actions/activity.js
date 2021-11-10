@@ -5,10 +5,10 @@ import {
 } from '../types';
 import customFetch from '../../services/fetch';
 
-export const setResponse = (action, response) => {
+export const setResponse = (action, result) => {
   return {
     type: action,
-    payload: response,
+    payload: result,
   };
 };
 

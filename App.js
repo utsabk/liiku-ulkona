@@ -12,12 +12,10 @@ const store = configureStore();
 const App = () => {
   return (
     <Provider store={store}>
-      <>
-        <StatusBar backgroundColor={theme.colors.primary} />
-        <NavigationContainer>
-          <Routes />
-        </NavigationContainer>
-      </>
+      <StatusBar backgroundColor={theme.colors.primary} />
+      <NavigationContainer>
+        <Routes />
+      </NavigationContainer>
     </Provider>
   );
 };
