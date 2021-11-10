@@ -1,13 +1,17 @@
 import React, { useState, useEffect, useContext } from 'react';
 import { TouchableOpacity, SafeAreaView, FlatList, Alert } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
-import { ActivityTypeContext } from '../ActivityTypeContext';
+import { useSelector } from 'react-redux';
 import { ActivitiesContext } from '../ActivitiesContext';
 import customFetch from '../services/fetch';
 import IconTextListItem from './IconTextListItem';
 
 const SearchList = () => {
-  const [activityType] = useContext(ActivityTypeContext);
+  const { activityTypes } = useSelector((state) => ({
+    activityTypes: state.activityTypesList.activityTypesList,
+  }));
+  console.log('activity type', activityTypes);
+
   const [, setActivities] = useContext(ActivitiesContext);
 
   const [selectedActivityType, setSelectedActivityType] = useState(null);
@@ -47,9 +51,9 @@ const SearchList = () => {
 
   return (
     <SafeAreaView>
-      {activityType && (
+      {activityTypes && (
         <FlatList
-          data={activityType}
+          data={activityTypes}
           renderItem={renderItem}
           keyExtractor={(item) => item._id}
         />
