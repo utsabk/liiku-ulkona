@@ -1,8 +1,9 @@
-import React, { useContext } from 'react';
+import React from 'react';
 import { Platform } from 'react-native';
 import Constants from 'expo-constants';
+import { useDispatch } from 'react-redux';
+import { getUserLocation } from '../store/actions/userLocation';
 import RoundButton from './RoundButton';
-import { CurrentLocationContext } from '../CurrentLocationContext';
 import {
   Accuracy,
   requestForegroundPermissionsAsync,
@@ -10,7 +11,7 @@ import {
 } from 'expo-location';
 
 const MyLocationButton = () => {
-  const [, setCurrentLocation] = useContext(CurrentLocationContext);
+  const dispatch = useDispatch();
 
   const getCurrentPosition = async () => {
     try {
@@ -28,11 +29,11 @@ const MyLocationButton = () => {
         { accuracy: Accuracy.BestForNavigation, distanceInterval: 2000 },
         (position) => {
           console.log('Position', position.coords);
-          setCurrentLocation(position.coords);
+          dispatch(getUserLocation(position.coords));
         }
       );
     } catch (error) {
-      console.log('Error:-', error);
+      throw new Error('Error geting user location');
     }
   };
 

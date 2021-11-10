@@ -1,19 +1,14 @@
-import React, { useState, useContext, useRef, useEffect } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import MapView from 'react-native-map-clustering';
 import { Marker } from 'react-native-maps';
+import { Ionicons } from '@expo/vector-icons';
 import { Dimensions, StyleSheet } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
+import { useDispatch, useSelector } from 'react-redux';
+import { getActivityWithId } from '../store/actions/activity';
 
-
-import { CurrentLocationContext } from '../CurrentLocationContext';
-import { ActivitiesContext } from '../ActivitiesContext';
-import { ActivityDetailsContext } from '../ActivityDetailsContext';
-
-import { Ionicons } from '@expo/vector-icons';
 
 import CustomMarker from './CustomMarker';
-
-import customFetch from '../services/fetch';
 
 let { width, height } = Dimensions.get('window');
 const ASPECT_RATIO = width / height;
@@ -26,26 +21,30 @@ const initialLocation = {
 };
 
 const Maps = () => {
-
+  const dispatch = useDispatch();
+  const mapRef = useRef(null);
   const navigation = useNavigation();
-
-  const [currentLocation] = useContext(CurrentLocationContext);
-
-  const [activities] = useContext(ActivitiesContext);
-
-  const [activityDetails, setActivityDetails] = useContext(
-    ActivityDetailsContext
-  );
 
   const [selectedMarker, setSelectedMarker] = useState({});
 
-  const mapRef = useRef(null);
+  const { userLocation } = useSelector((state) => state.location);
+
+  const { activities } = useSelector((state) => {
+    return {
+      activities: state.activity.activitiesList,
+    };
+  });
+  const { activityDetails } = useSelector((state) => {
+    return {
+      activityDetails: state.activity.activityDetails,
+    };
+  });
 
   useEffect(() => {
     if (mapRef.current) {
-      if (currentLocation) {
+      if (userLocation) {
         const newCamera = {
-          center: currentLocation,
+          center: userLocation,
           zoom: 18,
           heading: 0,
           pitch: 0,
@@ -54,21 +53,11 @@ const Maps = () => {
         mapRef.current.animateCamera(newCamera, { duration: 1000 });
       }
     }
-  }, [currentLocation]);
+  }, [userLocation]);
 
-  const fetchActivityWithId = async (Id) => {
-    try {
-      if (Id) {
-        const result = await customFetch(
-          `http://lipas.cc.jyu.fi/api/sports-places/${Id}?lang=en
-          `
-        );
-        if (result) {
-          setActivityDetails(result);
-        }
-      }
-    } catch (err) {
-      throw new Error('Error fetching activity with Id');
+  const fetchActivityWithId = (Id) => {
+    if (Id) {
+      dispatch(getActivityWithId(Id));
     }
   };
 
@@ -96,8 +85,8 @@ const Maps = () => {
         longitudeDelta: LONGITUDE_DELTA,
       }}
     >
-      {currentLocation && (
-        <Marker coordinate={currentLocation}>
+      {userLocation && (
+        <Marker coordinate={userLocation}>
           <Ionicons name="ios-location" size={36} color="blue" />
         </Marker>
       )}
@@ -106,7 +95,7 @@ const Maps = () => {
           <CustomMarker
             key={activity._id}
             activity={activity}
-            onMarkerPress={()=> handelMarkerPress(activity)}
+            onMarkerPress={() => handelMarkerPress(activity)}
             onCalloutPress={handelCalloutPress}
             coordinate={{
               latitude: activity.location.coordinates.lat,

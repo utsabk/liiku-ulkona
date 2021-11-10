@@ -4,7 +4,6 @@ import { View, StyleSheet } from 'react-native';
 import SearchButton from '../components/SearchButton';
 import MyLocationButton from '../components/MyLocationButton';
 import Maps from '../components/Maps';
-import { CurrentLocationProvider } from '../CurrentLocationContext';
 
 const styles = StyleSheet.create({
   buttonContainer: {
@@ -17,13 +16,11 @@ const styles = StyleSheet.create({
 const HomeScreen = () => {
   return (
     <View style={StyleSheet.absoluteFillObject}>
-      <CurrentLocationProvider>
-        <Maps  />
-        <View style={styles.buttonContainer}>
-          <MyLocationButton />
-          <SearchButton />
-        </View>
-      </CurrentLocationProvider>
+      <Maps />
+      <View style={styles.buttonContainer}>
+        <MyLocationButton />
+        <SearchButton />
+      </View>
     </View>
   );
 };

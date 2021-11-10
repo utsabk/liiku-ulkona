@@ -1,30 +1,24 @@
-import React, { useEffect, useContext } from 'react';
+import React, { useEffect } from 'react';
 import { useNavigation } from '@react-navigation/native';
 import { Searchbar, Appbar } from 'react-native-paper';
+import { useDispatch } from 'react-redux';
 import HeaderAppbar from './HeaderAppbar';
-import customFetch from '../services/fetch';
-import { ActivityTypeContext } from '../ActivityTypeContext';
+import { getActivityTypesList } from '../store/actions/activity';
 
 const SearchBar = () => {
   const [searchQuery, setSearchQuery] = React.useState();
-  const [, setActivityType] = useContext(ActivityTypeContext);
 
   const navigation = useNavigation();
+
+  const dispatch = useDispatch();
 
   const onChangeSearch = async (query) => {
     setSearchQuery(query);
   };
 
-  const fetchActivityType = async (query) => {
-    try {
-      if (query) {
-        const results = await customFetch(
-          `http://10.0.0.60:8000/activity/type/?name=${query}`
-        );
-        setActivityType(results);
-      }
-    } catch (err) {
-      throw new Error(err);
+  const fetchActivityType = (query) => {
+    if (query) {
+      dispatch(getActivityTypesList(query));
     }
   };
 

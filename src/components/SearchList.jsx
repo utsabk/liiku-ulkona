@@ -1,39 +1,30 @@
-import React, { useState, useEffect, useContext } from 'react';
-import { TouchableOpacity, SafeAreaView, FlatList, Alert } from 'react-native';
+import React, { useState, useEffect } from 'react';
+import { TouchableOpacity, SafeAreaView, FlatList } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
-import { ActivityTypeContext } from '../ActivityTypeContext';
-import { ActivitiesContext } from '../ActivitiesContext';
-import customFetch from '../services/fetch';
+import { useSelector, useDispatch } from 'react-redux';
 import IconTextListItem from './IconTextListItem';
+import { getActivitiesList } from '../store/actions/activity';
 
 const SearchList = () => {
-  const [activityType] = useContext(ActivityTypeContext);
-  const [, setActivities] = useContext(ActivitiesContext);
+  const dispatch = useDispatch();
+
+  const { activityTypes } = useSelector((state) => ({
+    activityTypes: state.activity.activityTypesList,
+  }));
 
   const [selectedActivityType, setSelectedActivityType] = useState(null);
 
   const navigation = useNavigation();
 
-  const fetchActivityWithCode = async (typeCode) => {
-    try {
-      if (typeCode) {
-        const results = await customFetch(
-          `http://10.0.0.60:8000/activity/code/?code=${typeCode}`
-        );
-        if (results.length > 0) {
-          setActivities(results);
-          navigation.navigate('Home'); // Navigate to home page
-        } else {
-          Alert.alert('Error', 'No such activities in this region');
-        }
-      }
-    } catch (err) {
-      throw new Error(err);
+  const fetchActivitiesWithCode = (typeCode) => {
+    if (typeCode) {
+      dispatch(getActivitiesList(typeCode));
+      navigation.navigate('Home'); // Navigate to home page
     }
   };
 
   useEffect(() => {
-    fetchActivityWithCode(selectedActivityType);
+    fetchActivitiesWithCode(selectedActivityType);
   }, [selectedActivityType]);
 
   const renderItem = ({ item }) => (
@@ -47,9 +38,9 @@ const SearchList = () => {
 
   return (
     <SafeAreaView>
-      {activityType && (
+      {activityTypes && (
         <FlatList
-          data={activityType}
+          data={activityTypes}
           renderItem={renderItem}
           keyExtractor={(item) => item._id}
         />

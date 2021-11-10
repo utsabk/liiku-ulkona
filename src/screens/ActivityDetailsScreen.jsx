@@ -1,18 +1,30 @@
-import React, { useContext } from 'react';
+import React from 'react';
 import { ScrollView } from 'react-native';
-import { ActivityDetailsContext } from '../ActivityDetailsContext';
+import { useSelector } from 'react-redux';
 import ListItem from '../components/IconTextListItem';
 import ListHeader from '../components/HeaderListItem';
 import LinkListItem from '../components/IconLinkListItem';
 import TitleSubtitleListItem from '../components/TitleSubtitleListItem';
 
 const ActivityDetailsScreen = () => {
-  const [activityDetails] = useContext(ActivityDetailsContext);
+  const { activityDetails } = useSelector((state) => {
+    return {
+      activityDetails: state.activity.activityDetails,
+    };
+  });
   return (
-    <ScrollView style={{backgroundColor: 'white'}}>
+    <ScrollView style={{ backgroundColor: 'white' }}>
       <ListHeader title="General" />
-      <TitleSubtitleListItem subtitle={'Name'} title={activityDetails.name || 'N/A'} />
-      <TitleSubtitleListItem subtitle={'Description'} title={activityDetails.properties.infoFi || 'No description'} />
+      <TitleSubtitleListItem
+        subtitle={'Name'}
+        title={activityDetails.name || 'N/A'}
+      />
+      {activityDetails.properties && (
+        <TitleSubtitleListItem
+          subtitle={'Description'}
+          title={activityDetails.properties.infoFi || 'No description'}
+        />
+      )}
 
       <ListHeader title="Ownership" />
       <TitleSubtitleListItem
@@ -24,16 +36,18 @@ const ActivityDetailsScreen = () => {
         title={activityDetails.admin || 'N/A'}
       />
 
-
       <ListHeader title="Contact information" />
       <ListItem
         icon={'location-pin'}
         title={
-          `${activityDetails.location.address
-          }, ${
-            activityDetails.location.postalCode ? activityDetails.location.postalCode : ''
+          `${activityDetails.location.address}, ${
+            activityDetails.location.postalCode
+              ? activityDetails.location.postalCode
+              : ''
           } ${
-            activityDetails.location.postalOffice ? activityDetails.location.postalOffice : ''
+            activityDetails.location.postalOffice
+              ? activityDetails.location.postalOffice
+              : ''
           }` || 'No location provided'
         }
       />
@@ -46,7 +60,6 @@ const ActivityDetailsScreen = () => {
         title={activityDetails.email || 'No email provided'}
       />
       <LinkListItem icon={'link'} title={activityDetails.www} />
-
     </ScrollView>
   );
 };
