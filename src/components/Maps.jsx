@@ -7,7 +7,6 @@ import { useNavigation } from '@react-navigation/native';
 import { useDispatch, useSelector } from 'react-redux';
 import { getActivityWithId } from '../store/actions/activity';
 
-
 import CustomMarker from './CustomMarker';
 
 let { width, height } = Dimensions.get('window');
@@ -40,6 +39,7 @@ const Maps = () => {
     };
   });
 
+  // Animate to user location when user location updates
   useEffect(() => {
     if (mapRef.current) {
       if (userLocation) {
@@ -64,6 +64,18 @@ const Maps = () => {
   useEffect(() => {
     fetchActivityWithId(selectedMarker.sportsPlaceId);
   }, [selectedMarker]);
+
+  // Animate to initialRegion when activities are populated on Maps
+  useEffect(() => {
+    const newCamera = {
+      center: initialLocation,
+      zoom: 10,
+      heading: 0,
+      pitch: 0,
+      altitude: 5,
+    };
+    mapRef.current.animateCamera(newCamera, { duration: 1800 });
+  }, [activities]);
 
   const handelMarkerPress = (activity) => {
     setSelectedMarker(activity);
