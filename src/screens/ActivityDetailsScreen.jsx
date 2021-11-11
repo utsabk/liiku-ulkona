@@ -17,7 +17,7 @@ const ActivityDetailsScreen = () => {
   const { userLocation } = useSelector((state) => state.location);
 
   const handlePhonePress = (number) => {
-    if (number) Linking.openURL(number);
+    if (number) Linking.openURL(`tel:${number}`);
   };
 
   const handleMailPress = (email) => {
