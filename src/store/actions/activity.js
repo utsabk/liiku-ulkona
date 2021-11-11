@@ -3,9 +3,9 @@ import {
   GET_ACTIVITIES_WITH_CODE_TYPE,
   GET_ACTIVITY_WITH_ID,
 } from '../types';
-import customFetch from '../../services/fetch';
+import { customFetch, API_IP, API_PORT } from '../../services/fetch';
 
-const API_URL = 'http://192.168.238.28:8000/activity/';
+const API_URL = `http://${API_IP}:${API_PORT}/activity/`;
 
 export const setResponse = (action, result) => {
   return {
