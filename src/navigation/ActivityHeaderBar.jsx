@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { StyleSheet } from 'react-native';
 import { Appbar } from 'react-native-paper';
 import { useDispatch, useSelector } from 'react-redux';
@@ -29,8 +29,6 @@ const HeaderBar = ({ navigation }) => {
   });
 
   const { favourites } = useSelector((state) => state.activity);
-
-  console.log('favourites:', favourites);
 
   const addFavorites = (activity) => dispatch(addToFavoritesList(activity));
 

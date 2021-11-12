@@ -1,23 +1,48 @@
 import React from 'react';
-import { Text, View, StyleSheet} from 'react-native';
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  text: {
-    marginTop: 50,
-    fontSize: 25,
-  },
-});
+import { SafeAreaView, FlatList } from 'react-native';
+import { useSelector, useDispatch } from 'react-redux';
+import FavouritesListItem from '../components/FavouritesListItem';
+import { removeFromFavoritesList } from '../store/actions/activity';
 
 const FavouritesScreen = () => {
+  const dispatch = useDispatch();
+
+  const { favourites } = useSelector((state) => state.activity);
+
+  console.log('favourites:', favourites);
+
+  const handleRemovePress = (activity) => {
+    dispatch(removeFromFavoritesList(activity));
+  };
+
+  const handleItemPress = (activity) => {
+    console.log('activity:', activity);
+  };
+
+  const renderItem = ({ item }) => (
+    <FavouritesListItem
+      subtitle={
+        `${item.location.address}, ${
+          item.location.postalCode ? item.location.postalCode : ''
+        } ${item.location.postalOffice ? item.location.postalOffice : ''}` ||
+        'No location provided'
+      }
+      title={item.name || 'N/A'}
+      handleIconPress={() => handleRemovePress(item)}
+      handleItemPress={() => handleItemPress(item)}
+    />
+  );
+
   return (
-    <View style={styles.container}>
-      <Text style={styles.text}>FavouritesScreen!</Text>
-    </View>
+    <SafeAreaView>
+      {favourites && (
+        <FlatList
+          data={favourites}
+          renderItem={renderItem}
+          keyExtractor={(item) => item.sportsPlaceId}
+        />
+      )}
+    </SafeAreaView>
   );
 };
 
