@@ -1,9 +1,16 @@
-import { GET_ACTIVITY_TYPES, GET_ACTIVITIES_WITH_CODE_TYPE,GET_ACTIVITY_WITH_ID } from '../types';
+import {
+  GET_ACTIVITY_TYPES,
+  GET_ACTIVITIES_WITH_CODE_TYPE,
+  GET_ACTIVITY_WITH_ID,
+  ADD_TO_FAVUORITES_LIST,
+  REMOVE_FROM_FAVUORITES_LIST,
+} from '../types';
 
 const initialState = {
   activityTypesList: [],
   activitiesList: [],
-  activityDetails:{}
+  activityDetails: {},
+  favourites:[]
 };
 
 const activityReducer = (state = initialState, action) => {
@@ -18,10 +25,22 @@ const activityReducer = (state = initialState, action) => {
         ...state,
         activitiesList: action.payload,
       };
-      case GET_ACTIVITY_WITH_ID:
+    case GET_ACTIVITY_WITH_ID:
       return {
         ...state,
         activityDetails: action.payload,
+      };
+
+    case ADD_TO_FAVUORITES_LIST:
+      return{
+        ...state,
+        favourites: [...state.favourites, action.payload]
+      };
+
+    case REMOVE_FROM_FAVUORITES_LIST:
+      return {
+        ...state,
+        favourites: state.favourites.filter(activity => activity.id !== action.payload.id)
       };
 
     default:

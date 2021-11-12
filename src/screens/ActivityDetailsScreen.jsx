@@ -13,7 +13,6 @@ const ActivityDetailsScreen = () => {
     };
   });
 
-  console.log(activityDetails);
   const { userLocation } = useSelector((state) => state.location);
 
   const handlePhonePress = (number) => {

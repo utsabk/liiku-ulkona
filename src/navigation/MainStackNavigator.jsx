@@ -7,7 +7,8 @@ import QRScanScreen from '../screens/QRScanScreen';
 import UserScreen from '../screens/UserScreen';
 import SearchScreen from '../screens/SearchScreen';
 import ActivityDetailsScreen from '../screens/ActivityDetailsScreen';
-import HeaderBar from './HeaderBarNavigator';
+import RootHeaderBar from './RootHeaderBar';
+import ActivityHeaderBar from './ActivityHeaderBar';
 
 const Stack = createStackNavigator();
 
@@ -17,7 +18,7 @@ const Routes = () => {
       <Stack.Screen
         name="Home"
         component={HomeScreen}
-        options={{ header: (props) => <HeaderBar {...props} /> }}
+        options={{ header: (props) => <RootHeaderBar {...props} /> }}
       />
       <Stack.Screen name="QRScan" component={QRScanScreen} />
       <Stack.Screen name="Favourites" component={FavouritesScreen} />
@@ -25,7 +26,7 @@ const Routes = () => {
       <Stack.Screen
         name="ActivityDetails"
         component={ActivityDetailsScreen}
-        options={{ title: 'Information' }}
+        options={{ header: (props) => <ActivityHeaderBar {...props} /> }}
       />
       <Stack.Screen
         name="Search"

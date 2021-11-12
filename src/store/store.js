@@ -1,17 +1,22 @@
 import { createStore, combineReducers, applyMiddleware } from 'redux';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import { persistStore, persistReducer } from 'redux-persist';
+import thunk from 'redux-thunk';
 
 import activityReducer from './reducers/activityReducer';
 import userLocationReducer from './reducers/useLocationReducer';
 
-import thunk from 'redux-thunk';
+const persistConfig = {
+  key: 'root',
+  storage: AsyncStorage,
+  whitelist: ['favourites'],
+};
 
 const rootReducer = combineReducers({
-  activity: activityReducer,
+  activity: persistReducer(persistConfig, activityReducer),
   location: userLocationReducer,
 });
 
-const configureStore = () => {
-  return createStore(rootReducer, applyMiddleware(thunk));
-};
+export const store = createStore(rootReducer, applyMiddleware(thunk));
 
-export default configureStore;
+export const persistor = persistStore(store);
