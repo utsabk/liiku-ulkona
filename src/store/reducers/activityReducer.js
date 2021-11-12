@@ -40,7 +40,7 @@ const activityReducer = (state = initialState, action) => {
     case REMOVE_FROM_FAVUORITES_LIST:
       return {
         ...state,
-        favourites: state.favourites.filter(activity => activity.id !== action.payload.id)
+        favourites: state.favourites.filter(activity => activity.sportsPlaceId !== action.payload.sportsPlaceId)
       };
 
     default:
