@@ -1,22 +1,34 @@
 import React from 'react';
 import { SafeAreaView, FlatList } from 'react-native';
 import { useSelector, useDispatch } from 'react-redux';
+import { useNavigation } from '@react-navigation/native';
 import FavouritesListItem from '../components/FavouritesListItem';
-import { removeFromFavoritesList } from '../store/actions/activity';
+import {
+  removeFromFavoritesList,
+  setActivity,
+} from '../store/actions/activity';
 
 const FavouritesScreen = () => {
   const dispatch = useDispatch();
+  const navigation = useNavigation();
 
   const { favourites } = useSelector((state) => state.activity);
 
-  console.log('favourites:', favourites);
+  const { activityDetails } = useSelector((state) => {
+    return {
+      activityDetails: state.activity.activityDetails,
+    };
+  });
 
   const handleRemovePress = (activity) => {
     dispatch(removeFromFavoritesList(activity));
   };
 
   const handleItemPress = (activity) => {
-    console.log('activity:', activity);
+    dispatch(setActivity(activity));
+    if (activityDetails) {
+      navigation.navigate('ActivityDetails');
+    }
   };
 
   const renderItem = ({ item }) => (
@@ -39,7 +51,7 @@ const FavouritesScreen = () => {
         <FlatList
           data={favourites}
           renderItem={renderItem}
-          keyExtractor={(item) => item.sportsPlaceId}
+          keyExtractor={(item) => item.sportsPlaceId.toString()}
         />
       )}
     </SafeAreaView>

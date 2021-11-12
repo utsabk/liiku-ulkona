@@ -64,6 +64,14 @@ export const getActivityWithId = (Id) => {
   };
 };
 
+// when an item selected from favourites list
+// it will save to activityDetails state
+export const setActivity = (activity) => {
+  return (dispatch) => {
+    dispatch(setState(GET_ACTIVITY_WITH_ID, activity));
+  };
+};
+
 export const addToFavoritesList = (activity) => {
   return (dispatch) => {
     dispatch(setState(ADD_TO_FAVUORITES_LIST, activity));
