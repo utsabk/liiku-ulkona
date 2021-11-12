@@ -6,13 +6,16 @@ import CalloutContainer from './CalloutContainer';
 
 const CustomMarker = ({
   coordinate,
+  coords,
+  iconName,
+  iconColor,
   onMarkerPress,
   onCalloutPress,
   activity,
 }) => {
   return (
-    <Marker onPress={onMarkerPress} coordinate={coordinate}>
-      <FontAwesome5 name="map-pin" size={30} color="red" />
+    <Marker onPress={onMarkerPress} coordinate={coordinate || coords}>
+      <FontAwesome5 name={iconName} size={30} color={iconColor} />
       {activity && (
         <Callout onPress={onCalloutPress}>
           <CalloutContainer activity={activity} />

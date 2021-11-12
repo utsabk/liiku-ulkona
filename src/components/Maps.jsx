@@ -39,6 +39,8 @@ const Maps = () => {
     };
   });
 
+  const { favourites } = useSelector((state) => state.activity);
+
   // Animate to user location when user location updates
   useEffect(() => {
     if (mapRef.current) {
@@ -89,6 +91,7 @@ const Maps = () => {
     }
   };
 
+
   return (
     <MapView
       ref={mapRef}
@@ -104,10 +107,12 @@ const Maps = () => {
           <Ionicons name="ios-location" size={36} color="blue" />
         </Marker>
       )}
-      {activities &&
+      {activities.length ?
         activities.map((activity) => (
           <CustomMarker
             key={activity._id}
+            iconName="map-pin"
+            iconColor="red"
             activity={activity}
             onMarkerPress={() => handelMarkerPress(activity)}
             onCalloutPress={handelCalloutPress}
@@ -116,7 +121,24 @@ const Maps = () => {
               longitude: activity.location.coordinates.lon,
             }}
           />
+        )) :
+
+      favourites &&
+        favourites.map((activity) => (
+          <CustomMarker
+            key={activity.sportsPlaceId.toString()}
+            iconName="map-marker-alt"
+            iconColor="#FC46AA"
+            activity={activity}
+            onMarkerPress={() => handelMarkerPress(activity)}
+            onCalloutPress={handelCalloutPress}
+            coords={{
+              latitude: activity.location.coordinates.wgs84.lat,
+              longitude: activity.location.coordinates.wgs84.lon,
+            }}
+          />
         ))}
+
     </MapView>
   );
 };
