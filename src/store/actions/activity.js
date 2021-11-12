@@ -72,6 +72,13 @@ export const setActivity = (activity) => {
   };
 };
 
+// when clear search pressed 
+export const setActivities = (activity) => {
+  return (dispatch) => {
+    dispatch(setState(GET_ACTIVITIES_WITH_CODE_TYPE, activity));
+  };
+};
+
 export const addToFavoritesList = (activity) => {
   return (dispatch) => {
     dispatch(setState(ADD_TO_FAVUORITES_LIST, activity));
