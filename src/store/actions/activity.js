@@ -2,12 +2,14 @@ import {
   GET_ACTIVITY_TYPES,
   GET_ACTIVITIES_WITH_CODE_TYPE,
   GET_ACTIVITY_WITH_ID,
+  ADD_TO_FAVUORITES_LIST,
+  REMOVE_FROM_FAVUORITES_LIST,
 } from '../types';
 import { customFetch, API_IP, API_PORT } from '../../services/fetch';
 
 const API_URL = `http://${API_IP}:${API_PORT}/activity/`;
 
-export const setResponse = (action, result) => {
+export const setState = (action, result) => {
   return {
     type: action,
     payload: result,
@@ -19,7 +21,7 @@ export const getActivityTypesList = (query) => {
     try {
       if (query) {
         const results = await customFetch(`${API_URL}type/?name=${query}`);
-        await dispatch(setResponse(GET_ACTIVITY_TYPES, results));
+        await dispatch(setState(GET_ACTIVITY_TYPES, results));
 
         return results || [];
       }
@@ -37,7 +39,7 @@ export const getActivitiesList = (typeCode) => {
         if (!results.length) {
           alert('No such activities in this region');
         }
-        await dispatch(setResponse(GET_ACTIVITIES_WITH_CODE_TYPE, results));
+        await dispatch(setState(GET_ACTIVITIES_WITH_CODE_TYPE, results));
         return results || [];
       }
     } catch (err) {
@@ -53,11 +55,23 @@ export const getActivityWithId = (Id) => {
         const result = await customFetch(
           `http://lipas.cc.jyu.fi/api/sports-places/${Id}?lang=en`
         );
-        await dispatch(setResponse(GET_ACTIVITY_WITH_ID, result));
+        await dispatch(setState(GET_ACTIVITY_WITH_ID, result));
         return result || {};
       }
     } catch (err) {
       throw new Error(err);
     }
+  };
+};
+
+export const addToFavoritesList = (activity) => {
+  return (dispatch) => {
+    dispatch(setState(ADD_TO_FAVUORITES_LIST, activity));
+  };
+};
+
+export const removeFromFavoritesList = (activity) => {
+  return (dispatch) => {
+    dispatch(setState(REMOVE_FROM_FAVUORITES_LIST, activity));
   };
 };
