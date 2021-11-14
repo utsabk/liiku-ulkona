@@ -19,6 +19,17 @@ const initialLocation = {
   longitude: 24.9379047,
 };
 
+const images = {
+  pin: {
+    imgName: 'pin',
+    uri: require('../../assets/pin.png'),
+  },
+  heart_pin: {
+    imgName: 'heart_pin',
+    uri: require('../../assets/heart_pin.png'),
+  },
+};
+
 const Maps = () => {
   const dispatch = useDispatch();
   const mapRef = useRef(null);
@@ -91,7 +102,6 @@ const Maps = () => {
     }
   };
 
-
   return (
     <MapView
       ref={mapRef}
@@ -107,38 +117,36 @@ const Maps = () => {
           <Ionicons name="ios-location" size={36} color="blue" />
         </Marker>
       )}
-      {activities.length ?
-        activities.map((activity) => (
-          <CustomMarker
-            key={activity._id}
-            iconName="map-pin"
-            iconColor="red"
-            activity={activity}
-            onMarkerPress={() => handelMarkerPress(activity)}
-            onCalloutPress={handelCalloutPress}
-            coordinate={{
-              latitude: activity.location.coordinates.lat,
-              longitude: activity.location.coordinates.lon,
-            }}
-          />
-        )) :
-
-      favourites &&
-        favourites.map((activity) => (
-          <CustomMarker
-            key={activity.sportsPlaceId.toString()}
-            iconName="map-marker-alt"
-            iconColor="#FC46AA"
-            activity={activity}
-            onMarkerPress={() => handelMarkerPress(activity)}
-            onCalloutPress={handelCalloutPress}
-            coords={{
-              latitude: activity.location.coordinates.wgs84.lat,
-              longitude: activity.location.coordinates.wgs84.lon,
-            }}
-          />
-        ))}
-
+      {activities.length
+        ? activities.map((activity) => (
+            <CustomMarker
+              key={activity._id}
+              iconName={images.pin.uri}
+              iconColor="red"
+              activity={activity}
+              onMarkerPress={() => handelMarkerPress(activity)}
+              onCalloutPress={handelCalloutPress}
+              coordinate={{
+                latitude: activity.location.coordinates.lat,
+                longitude: activity.location.coordinates.lon,
+              }}
+            />
+          ))
+        : favourites &&
+          favourites.map((activity) => (
+            <CustomMarker
+              key={activity.sportsPlaceId.toString()}
+              iconName={images.heart_pin.uri}
+              iconColor="#FC46AA"
+              activity={activity}
+              onMarkerPress={() => handelMarkerPress(activity)}
+              onCalloutPress={handelCalloutPress}
+              coords={{
+                latitude: activity.location.coordinates.wgs84.lat,
+                longitude: activity.location.coordinates.wgs84.lon,
+              }}
+            />
+          ))}
     </MapView>
   );
 };

@@ -27,7 +27,7 @@ const styles = StyleSheet.create({
     fontSize: theme.fontSizes.body,
     fontWeight: theme.fontWeights.bold,
     letterSpacing: 0.2,
-    color: theme.colors.primary,
+    color: theme.colors.secondary,
   },
 });
 

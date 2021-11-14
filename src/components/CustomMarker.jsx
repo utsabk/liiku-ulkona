@@ -1,6 +1,6 @@
 import React from 'react';
+import { Image } from 'react-native';
 import { Marker, Callout } from 'react-native-maps';
-import { FontAwesome5 } from '@expo/vector-icons';
 
 import CalloutContainer from './CalloutContainer';
 
@@ -8,14 +8,13 @@ const CustomMarker = ({
   coordinate,
   coords,
   iconName,
-  iconColor,
   onMarkerPress,
   onCalloutPress,
   activity,
 }) => {
   return (
     <Marker onPress={onMarkerPress} coordinate={coordinate || coords}>
-      <FontAwesome5 name={iconName} size={30} color={iconColor} />
+      <Image style={{ width: 35, height: 35 }} source={iconName} />
       {activity && (
         <Callout onPress={onCalloutPress}>
           <CalloutContainer activity={activity} />

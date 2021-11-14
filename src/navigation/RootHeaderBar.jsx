@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { StyleSheet } from 'react-native';
 import { Appbar } from 'react-native-paper';
+import { Fontisto, FontAwesome5 } from '@expo/vector-icons';
 import HeaderAppbar from '../components/HeaderAppbar';
 import theme from '../theme';
 
@@ -11,6 +12,18 @@ const styles = StyleSheet.create({
     fontWeight: theme.fontWeights.bold,
   },
 });
+const saveIcon = () => (
+  <Fontisto
+    name="favorite"
+    size={30}
+    style={{ marginStart: 2 }}
+    color={theme.colors.red}
+  />
+);
+
+const userIcon = () => (
+  <FontAwesome5 name="user-circle" size={30} color={theme.colors.secondary} />
+);
 
 const HeaderBar = ({ navigation }) => {
   const handleQRScan = () => navigation.navigate('QRScan');
@@ -23,21 +36,11 @@ const HeaderBar = ({ navigation }) => {
       <Appbar.Action
         icon="qrcode-scan"
         color={theme.colors.secondary}
-        size={26}
+        size={28}
         onPress={handleQRScan}
       />
-      <Appbar.Action
-        icon="heart"
-        color={theme.colors.red}
-        size={30}
-        onPress={handleFavourite}
-      />
-      <Appbar.Action
-        icon="account-circle-outline"
-        size={30}
-        color={theme.colors.secondary}
-        onPress={handleUser}
-      />
+      <Appbar.Action icon={saveIcon} size={30} onPress={handleFavourite} />
+      <Appbar.Action icon={userIcon} size={30} onPress={handleUser} />
     </HeaderAppbar>
   );
 };
