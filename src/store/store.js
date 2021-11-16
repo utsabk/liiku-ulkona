@@ -4,7 +4,7 @@ import { persistStore, persistReducer } from 'redux-persist';
 import thunk from 'redux-thunk';
 
 import activityReducer from './reducers/activityReducer';
-import userLocationReducer from './reducers/useLocationReducer';
+import userReducer from './reducers/userReducer';
 
 const persistConfig = {
   key: 'root',
@@ -14,7 +14,7 @@ const persistConfig = {
 
 const rootReducer = combineReducers({
   activity: persistReducer(persistConfig, activityReducer),
-  location: userLocationReducer,
+  user: userReducer,
 });
 
 export const store = createStore(rootReducer, applyMiddleware(thunk));

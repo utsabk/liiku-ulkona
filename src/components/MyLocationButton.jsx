@@ -1,8 +1,6 @@
 import React from 'react';
-import { Platform } from 'react-native';
-import Constants from 'expo-constants';
 import { useDispatch } from 'react-redux';
-import { getUserLocation } from '../store/actions/userLocation';
+import { getUserLocation } from '../store/actions/user';
 import RoundButton from './RoundButton';
 import {
   Accuracy,

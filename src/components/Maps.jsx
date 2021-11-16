@@ -37,7 +37,7 @@ const Maps = () => {
 
   const [selectedMarker, setSelectedMarker] = useState({});
 
-  const { userLocation } = useSelector((state) => state.location);
+  const { userLocation } = useSelector((state) => state.user.userLocation);
 
   const { activities } = useSelector((state) => {
     return {
