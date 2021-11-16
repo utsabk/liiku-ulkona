@@ -1,4 +1,4 @@
-import { GET_USER_LOCATION, GET_USER_POINTS } from '../types';
+import { GET_USER_LOCATION, ADD_USER_POINTS } from '../types';
 
 const initialState = {
   userLocation: {},
@@ -13,7 +13,7 @@ const userReducer = (state = initialState, action) => {
         userLocation: action.payload,
       };
 
-    case GET_USER_POINTS:
+    case ADD_USER_POINTS:
       return {
         ...state,
         points: state.points + 1,

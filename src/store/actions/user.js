@@ -1,4 +1,4 @@
-import { GET_USER_LOCATION, GET_USER_POINTS } from '../types';
+import { GET_USER_LOCATION, ADD_USER_POINTS } from '../types';
 
 export const getUserLocation = (location) => {
   return {
@@ -7,8 +7,8 @@ export const getUserLocation = (location) => {
   };
 };
 
-export const getUserPoints = () => {
+export const addUserPoints = () => {
   return {
-    type: GET_USER_POINTS,
+    type: ADD_USER_POINTS,
   };
 };
