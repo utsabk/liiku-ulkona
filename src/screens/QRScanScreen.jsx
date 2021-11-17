@@ -23,11 +23,11 @@ const QRScanScreen = () => {
 
   const handleBarCodeScanned = ({ type, data }) => {
     setScanned(true);
-
-    if (data && type) {
+    if (data === 'Helsinki091') {
       dispatch(addUserPoints());
-      alert(`Bar code with type ${type} and data ${data} has been scanned!`);
+      return alert(`Point collected, Congratulation!!`);
     }
+    alert(`Please scan the correct bar code!`);
   };
   if (hasPermission === null) {
     return <Text>Requesting for camera permission</Text>;

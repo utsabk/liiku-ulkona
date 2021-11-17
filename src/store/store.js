@@ -9,12 +9,12 @@ import userReducer from './reducers/userReducer';
 const persistConfig = {
   key: 'root',
   storage: AsyncStorage,
-  whitelist: ['favourites'],
+  whitelist: ['favourites', 'points'],
 };
 
 const rootReducer = combineReducers({
   activity: persistReducer(persistConfig, activityReducer),
-  user: userReducer,
+  user: persistReducer(persistConfig, userReducer),
 });
 
 export const store = createStore(rootReducer, applyMiddleware(thunk));

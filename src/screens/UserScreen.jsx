@@ -1,8 +1,9 @@
 import React from 'react';
 import { View, StyleSheet } from 'react-native';
 import { useSelector } from 'react-redux';
-
 import * as Progress from 'react-native-progress';
+
+import theme from '../theme';
 
 const styles = StyleSheet.create({
   container: {
@@ -15,9 +16,6 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
-  progress: {
-    margin: 10,
-  },
 });
 
 const UserScreen = () => {
@@ -27,13 +25,11 @@ const UserScreen = () => {
     <View style={styles.container}>
       <Progress.Circle
         size={300}
-        style={styles.progress}
         progress={points / 100 || 0}
         thickness={10}
-        borderColor="blue"
+        borderColor={theme.colors.secondary}
         borderWidth={3}
-        strokeCap="round"
-        color="red"
+        color={theme.colors.red}
       />
     </View>
   );
