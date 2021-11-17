@@ -27,6 +27,8 @@ const UserScreen = () => {
         size={300}
         progress={points / 100 || 0}
         thickness={10}
+        showsText
+        formatText={() => points}
         borderColor={theme.colors.secondary}
         borderWidth={3}
         color={theme.colors.red}

@@ -21,7 +21,7 @@ const QRScanScreen = () => {
     })();
   }, []);
 
-  const handleBarCodeScanned = ({ type, data }) => {
+  const handleBarCodeScanned = ({ data }) => {
     setScanned(true);
     if (data === 'Helsinki091') {
       dispatch(addUserPoints());
