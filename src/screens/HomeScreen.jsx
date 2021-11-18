@@ -1,9 +1,11 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { View, StyleSheet, Pressable, Text } from 'react-native';
 import { useSelector, useDispatch } from 'react-redux';
 
 import SearchButton from '../components/SearchButton';
 import MyLocationButton from '../components/MyLocationButton';
+import MapTypeButton from '../components/MapTypeButton';
+
 import Maps from '../components/Maps';
 import { setActivities } from '../store/actions/activity';
 import theme from '../theme';
@@ -13,6 +15,11 @@ const styles = StyleSheet.create({
     position: 'absolute',
     bottom: '15%',
     right: '5%',
+  },
+  mapTypeButton: {
+    position: 'absolute',
+    bottom: '20%',
+    left: '5%',
   },
   button: {
     alignSelf: 'center',
@@ -32,6 +39,9 @@ const styles = StyleSheet.create({
 });
 
 const HomeScreen = () => {
+  const [mapTypeVisible, setMapTypeVisible] = useState(false);
+  const [mapType, setMapType] = useState('standard');
+
   const dispatch = useDispatch();
 
   const { activities } = useSelector((state) => {
@@ -40,14 +50,22 @@ const HomeScreen = () => {
     };
   });
 
-  const handlePress = () => {
+  const handleClearPress = () => {
     dispatch(setActivities([]));
   };
+
+  const handleMapClick = () => {
+    setMapTypeVisible(!mapTypeVisible);
+  };
+
+  const switchMapType = () =>
+    mapType === 'standard' ? setMapType('satellite') : setMapType('standard');
+
   return (
     <View style={StyleSheet.absoluteFillObject}>
-      <Maps />
+      <Maps handlePress={handleMapClick} mapType={mapType} />
       {activities.length > 0 && (
-        <Pressable style={styles.button} onPress={handlePress}>
+        <Pressable style={styles.button} onPress={handleClearPress}>
           <Text style={styles.text}>Clear search</Text>
         </Pressable>
       )}
@@ -56,6 +74,12 @@ const HomeScreen = () => {
         <MyLocationButton />
         <SearchButton />
       </View>
+
+      {mapTypeVisible && (
+        <View style={styles.mapTypeButton}>
+          <MapTypeButton handleMapType={switchMapType} mapType={mapType} />
+        </View>
+      )}
     </View>
   );
 };
