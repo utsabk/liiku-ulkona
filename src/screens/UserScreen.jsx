@@ -1,5 +1,9 @@
 import React from 'react';
-import { Text, View, StyleSheet} from 'react-native';
+import { View, StyleSheet } from 'react-native';
+import { useSelector } from 'react-redux';
+import * as Progress from 'react-native-progress';
+
+import theme from '../theme';
 
 const styles = StyleSheet.create({
   container: {
@@ -7,16 +11,28 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
   },
-  text: {
-    marginTop: 50,
-    fontSize: 25,
+  circles: {
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
   },
 });
 
 const UserScreen = () => {
+  const points = useSelector((state) => state.user.points);
+
   return (
     <View style={styles.container}>
-      <Text style={styles.text}>UserScreen!</Text>
+      <Progress.Circle
+        size={300}
+        progress={points / 100 || 0}
+        thickness={10}
+        showsText
+        formatText={() => points}
+        borderColor={theme.colors.secondary}
+        borderWidth={3}
+        color={theme.colors.red}
+      />
     </View>
   );
 };

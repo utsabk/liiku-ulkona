@@ -13,7 +13,7 @@ const ActivityDetailsScreen = () => {
     };
   });
 
-  const { userLocation } = useSelector((state) => state.location);
+  const { userLocation } = useSelector((state) => state.user);
 
   const handlePhonePress = (number) => {
     if (number) Linking.openURL(`tel:${number}`);

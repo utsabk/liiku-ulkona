@@ -37,7 +37,9 @@ const Maps = ({ handlePress, mapType }) => {
 
   const [selectedMarker, setSelectedMarker] = useState({});
 
-  const { userLocation } = useSelector((state) => state.location);
+  const { userLocation } = useSelector((state) => state.user);
+
+  console.log('userLocation', userLocation);
 
   const { activities } = useSelector((state) => {
     return {

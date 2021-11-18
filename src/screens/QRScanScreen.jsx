@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from 'react';
-import { Text, View, StyleSheet, Dimensions} from 'react-native';
+import { Text, View, StyleSheet, Dimensions } from 'react-native';
 import { BarCodeScanner } from 'expo-barcode-scanner';
 import BarcodeMask from 'react-native-barcode-mask';
+import { useDispatch } from 'react-redux';
+import { addUserPoints } from '../store/actions/user';
 
 const { width } = Dimensions.get('window');
 const qrSize = width * 0.7;
@@ -10,6 +12,8 @@ const QRScanScreen = () => {
   const [hasPermission, setHasPermission] = useState(null);
   const [scanned, setScanned] = useState(false);
 
+  const dispatch = useDispatch();
+
   useEffect(() => {
     (async () => {
       const { status } = await BarCodeScanner.requestPermissionsAsync();
@@ -17,10 +21,13 @@ const QRScanScreen = () => {
     })();
   }, []);
 
-  const handleBarCodeScanned = ({ type, data }) => {
+  const handleBarCodeScanned = ({ data }) => {
     setScanned(true);
-
-    alert(`Bar code with type ${type} and data ${data} has been scanned!`);
+    if (data === 'Helsinki091') {
+      dispatch(addUserPoints());
+      return alert(`Point collected, Congratulation!!`);
+    }
+    alert(`Please scan the correct bar code!`);
   };
   if (hasPermission === null) {
     return <Text>Requesting for camera permission</Text>;
@@ -33,16 +40,20 @@ const QRScanScreen = () => {
     <View style={{ flex: 1 }}>
       <BarCodeScanner
         onBarCodeScanned={scanned ? undefined : handleBarCodeScanned}
-        style={[StyleSheet.absoluteFillObject, styles.container]} >
-      <Text style={styles.description}>Scan your QR code</Text>
-      <BarcodeMask  width={qrSize} height={qrSize} edgeColor="#62B1F6" showAnimatedLine />
+        style={[StyleSheet.absoluteFillObject, styles.container]}
+      >
+        <Text style={styles.description}>Scan your QR code</Text>
+        <BarcodeMask
+          width={qrSize}
+          height={qrSize}
+          edgeColor="#62B1F6"
+          showAnimatedLine
+        />
       </BarCodeScanner>
 
       {scanned && (
-        <Text
-          onPress={() => setScanned(false)}
-          style={styles.rescan}
-        >Scan Again
+        <Text onPress={() => setScanned(false)} style={styles.rescan}>
+          Scan Again
         </Text>
       )}
     </View>
@@ -68,7 +79,6 @@ const styles = StyleSheet.create({
     color: 'white',
     position: 'absolute',
     bottom: '10%',
-    
   },
 });
 
