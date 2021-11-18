@@ -30,7 +30,7 @@ const images = {
   },
 };
 
-const Maps = () => {
+const Maps = ({ handlePress, mapType }) => {
   const dispatch = useDispatch();
   const mapRef = useRef(null);
   const navigation = useNavigation();
@@ -106,11 +106,13 @@ const Maps = () => {
     <MapView
       ref={mapRef}
       style={StyleSheet.absoluteFillObject}
+      mapType={mapType}
       initialRegion={{
         ...initialLocation,
         latitudeDelta: LATITUDE_DELTA,
         longitudeDelta: LONGITUDE_DELTA,
       }}
+      onPress={handlePress}
     >
       {userLocation && (
         <Marker coordinate={userLocation}>
