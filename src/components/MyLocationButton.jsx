@@ -1,7 +1,8 @@
 import React from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { getUserLocation } from '../store/actions/user';
 import RoundButton from './RoundButton';
+import theme from '../theme';
 import {
   Accuracy,
   requestForegroundPermissionsAsync,
@@ -10,6 +11,10 @@ import {
 
 const MyLocationButton = () => {
   const dispatch = useDispatch();
+
+  const { userLocation } = useSelector((state) => state.user);
+
+  const iconColor = userLocation ? theme.colors.secondary : theme.colors.grey;
 
   const getCurrentPosition = async () => {
     try {
@@ -34,7 +39,7 @@ const MyLocationButton = () => {
   return (
     <RoundButton
       icon="my-location"
-      color="grey"
+      color={iconColor}
       handleClick={getCurrentPosition}
     />
   );

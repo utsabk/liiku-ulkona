@@ -63,7 +63,7 @@ const Maps = ({ handlePress, mapType }) => {
           zoom: 18,
           heading: 0,
           pitch: 0,
-          altitude: 5,
+          altitude: 1000,
         };
         mapRef.current.animateCamera(newCamera, { duration: 2000 });
       }
