@@ -3,7 +3,7 @@ import { TextInput as NativeTextInput, StyleSheet } from 'react-native';
 
 const styles = StyleSheet.create({
   textvalid: {
-    borderColor: 'black',
+    borderColor: 'white',
   },
   textinvalid: {
     borderColor: '#d73a4a',

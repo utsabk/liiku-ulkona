@@ -3,11 +3,14 @@ import { Text, StyleSheet } from 'react-native';
 import { useField } from 'formik';
 
 import TextInput from './TextInput';
+import theme from '../theme';
 
 const styles = StyleSheet.create({
   errorText: {
-    paddingStart: 20,
-    color: '#d73a4a',
+    color: theme.colors.red,
+    alignSelf: 'flex-start',
+    paddingStart:'5%'
+
   },
   textInput: {
     width: '90%',
@@ -15,7 +18,9 @@ const styles = StyleSheet.create({
     height: 40,
     padding: 10,
     borderRadius: 2,
-    borderWidth: 1,
+    borderBottomWidth: 3,
+    backgroundColor:'rgba(232, 232, 232, 0.7)',
+
   },
 });
 
