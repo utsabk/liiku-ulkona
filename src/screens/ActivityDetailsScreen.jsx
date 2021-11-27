@@ -16,7 +16,11 @@ const ActivityDetailsScreen = () => {
   const { userLocation } = useSelector((state) => state.user);
 
   const handlePhonePress = (number) => {
-    if (number) Linking.openURL(`tel:${number}`);
+    const phoneTrim = number.replace(/ /g, '');
+    if (number)
+      Linking.openURL(`tel:${phoneTrim}`).catch((err) =>
+        console.log('Error opening Phone:', err)
+      );
   };
 
   const handleMailPress = (email) => {
@@ -41,7 +45,9 @@ const ActivityDetailsScreen = () => {
       android: `https://www.google.com/maps/dir/?api=1&origin=${origin}&destination=${destination}`,
     });
 
-    Linking.openURL(url);
+    Linking.openURL(url).catch((err) =>
+      console.log('Error opening Maps:', err)
+    );
   };
 
   const handleLinkPress = (link) => {

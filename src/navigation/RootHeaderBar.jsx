@@ -28,7 +28,7 @@ const userIcon = () => (
 const HeaderBar = ({ navigation }) => {
   const handleQRScan = () => navigation.navigate('QRScan');
   const handleFavourite = () => navigation.navigate('Favourites');
-  const handleUser = () => navigation.navigate('User');
+  const handleUser = () => navigation.navigate('SignIn');
 
   return (
     <HeaderAppbar>

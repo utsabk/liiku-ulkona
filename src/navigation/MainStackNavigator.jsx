@@ -7,6 +7,7 @@ import QRScanScreen from '../screens/QRScanScreen';
 import UserScreen from '../screens/UserScreen';
 import SearchScreen from '../screens/SearchScreen';
 import ActivityDetailsScreen from '../screens/ActivityDetailsScreen';
+import SignInScreen from '../screens/SignInScreen';
 import RootHeaderBar from './RootHeaderBar';
 import ActivityHeaderBar from './ActivityHeaderBar';
 
@@ -32,6 +33,10 @@ const Routes = () => {
         name="Search"
         component={SearchScreen}
         options={{ headerShown: false }}
+      />
+      <Stack.Screen
+        name="SignIn"
+        component={SignInScreen}
       />
     </Stack.Navigator>
   );
