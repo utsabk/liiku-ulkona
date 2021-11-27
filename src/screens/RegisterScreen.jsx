@@ -9,7 +9,6 @@ import {
 } from 'react-native';
 import { Formik } from 'formik';
 import { useNavigation } from '@react-navigation/native';
-
 import FormikTextInput from '../components/FormikTextInput';
 import theme from '../theme';
 
@@ -45,13 +44,15 @@ const styles = StyleSheet.create({
 
 const initialValues = {
   username: '',
+  email: '',
   password: '',
+  confirmPassword: '',
 };
 
-const SignInForm = ({ onSubmit }) => {
+const RegisterForm = ({ onSubmit }) => {
   const navigation = useNavigation();
 
-  const handleRegisterClick = () => navigation.navigate('Register');
+  const handleLoginClick = () => navigation.navigate('SignIn');
 
   return (
     <ImageBackground
@@ -60,17 +61,23 @@ const SignInForm = ({ onSubmit }) => {
       source={imageBackground.uri}
     >
       <View style={styles.container}>
-        <FormikTextInput placeholder="Enter your username" name="username" />
+        <FormikTextInput placeholder="Username" name="username" />
+        <FormikTextInput placeholder="Email" name="email" />
         <FormikTextInput
-          placeholder="Enter your password"
+          placeholder="Password"
           name="password"
+          secureTextEntry
+        />
+        <FormikTextInput
+          placeholder="Retype password"
+          name="confirmPassword"
           secureTextEntry
         />
         <Pressable onPress={onSubmit} style={styles.signIn}>
           <Text style={styles.btnText}>SIGN IN</Text>
         </Pressable>
-        <Text style={styles.registerText} onPress={handleRegisterClick}>
-          Register for free
+        <Text style={styles.registerText} onPress={handleLoginClick}>
+          Have an account? Signin
         </Text>
       </View>
     </ImageBackground>
@@ -79,14 +86,28 @@ const SignInForm = ({ onSubmit }) => {
 
 const validationSchema = Yup.object().shape({
   username: Yup.string().required('Username is required'),
+  email: Yup.string().required('Email is required'),
   password: Yup.string().required('Password is required'),
+  confirmPassword: Yup.string().required('Can not be blank').oneOf(
+    [Yup.ref('password'), null],
+    'Passwords must match'
+  ),
 });
-const SignIn = () => {
+
+const Register = () => {
   const onSubmit = (values) => {
     const username = values.username;
+    const email = values.email;
     const password = values.password;
 
-    console.log('Username:-', username, 'Password:-', password);
+    console.log(
+      'Username:-',
+      username,
+      'Password:-',
+      password,
+      'Email:-',
+      email
+    );
   };
 
   return (
@@ -95,9 +116,9 @@ const SignIn = () => {
       onSubmit={onSubmit}
       validationSchema={validationSchema}
     >
-      {({ handleSubmit }) => <SignInForm onSubmit={handleSubmit} />}
+      {({ handleSubmit }) => <RegisterForm onSubmit={handleSubmit} />}
     </Formik>
   );
 };
 
-export default SignIn;
+export default Register;

@@ -8,6 +8,8 @@ import UserScreen from '../screens/UserScreen';
 import SearchScreen from '../screens/SearchScreen';
 import ActivityDetailsScreen from '../screens/ActivityDetailsScreen';
 import SignInScreen from '../screens/SignInScreen';
+import RegisterScreen from '../screens/RegisterScreen';
+
 import RootHeaderBar from './RootHeaderBar';
 import ActivityHeaderBar from './ActivityHeaderBar';
 
@@ -37,7 +39,11 @@ const Routes = () => {
       <Stack.Screen
         name="SignIn"
         component={SignInScreen}
+        options={{
+          title: 'Sign In',
+        }}
       />
+      <Stack.Screen name="Register" component={RegisterScreen} />
     </Stack.Navigator>
   );
 };
