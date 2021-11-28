@@ -17,7 +17,10 @@ const Stack = createStackNavigator();
 
 const Routes = () => {
   return (
-    <Stack.Navigator initialRouteName="Home">
+    <Stack.Navigator
+      initialRouteName="Home"
+      screenOptions={{ headerTitleAlign: 'center' }}
+    >
       <Stack.Screen
         name="Home"
         component={HomeScreen}

@@ -9,6 +9,10 @@ import {
 } from 'react-native';
 import { Formik } from 'formik';
 import { useNavigation } from '@react-navigation/native';
+import { useDispatch } from 'react-redux';
+
+
+import { getUserToken } from '../store/actions/user';
 import FormikTextInput from '../components/FormikTextInput';
 import { registerUser } from '../services/fetch';
 
@@ -51,8 +55,12 @@ const initialValues = {
   confirmPassword: '',
 };
 
+
+
 const RegisterForm = ({ onSubmit }) => {
+  
   const navigation = useNavigation();
+
 
   const handleLoginClick = () => navigation.navigate('SignIn');
 
@@ -95,17 +103,28 @@ const validationSchema = Yup.object().shape({
     .oneOf([Yup.ref('password'), null], 'Passwords must match'),
 });
 
-const Register = () => {
-  const onSubmit = (values, { resetForm }) => {
+const Register = ({navigation}) => {
+
+  const dispatch = useDispatch();
+
+  const onSubmit = async (values, { resetForm }) => {
     const fd = {
       username: values.username,
       email: values.username,
       password: values.password,
     };
 
-    registerUser(fd);
+    const response = await registerUser(fd);
 
-    resetForm({ values: '' });
+    if (response.token) {
+      dispatch(getUserToken(response.token));
+      resetForm({ values: '' });
+      navigation.reset({
+        index:0,
+        routes:[{name:'Home'}]
+      });
+      return navigation.navigate('User');
+    }
   };
 
   return (

@@ -41,7 +41,6 @@ export const authFetch = async (url, fd) => {
 export const registerUser = async (formData) => {
   try {
     const response = await authFetch(`${AUTH_URL}/register`, formData);
-    console.log('response', response);
     return response;
   } catch (e) {
     console.log('error while register', e);
@@ -51,7 +50,6 @@ export const registerUser = async (formData) => {
 export const loginUser = async (formData) => {
   try {
     const response = await authFetch(`${AUTH_URL}/login`, formData);
-    console.log('response', response);
     return response;
   } catch (e) {
     console.log('error while login', e);

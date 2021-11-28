@@ -2,6 +2,7 @@ import * as React from 'react';
 import { StyleSheet } from 'react-native';
 import { Appbar } from 'react-native-paper';
 import { Fontisto, FontAwesome5 } from '@expo/vector-icons';
+import { useSelector } from 'react-redux';
 import HeaderAppbar from '../components/HeaderAppbar';
 import theme from '../theme';
 
@@ -26,9 +27,13 @@ const userIcon = () => (
 );
 
 const HeaderBar = ({ navigation }) => {
+  
+  const { userToken } = useSelector((state) => state.user);
+
   const handleQRScan = () => navigation.navigate('QRScan');
   const handleFavourite = () => navigation.navigate('Favourites');
-  const handleUser = () => navigation.navigate('SignIn');
+  const handleUser = () =>
+    userToken ? navigation.navigate('User') : navigation.navigate('SignIn');
 
   return (
     <HeaderAppbar>

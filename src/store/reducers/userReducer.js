@@ -1,8 +1,9 @@
-import { GET_USER_LOCATION, ADD_USER_POINTS } from '../types';
+import { GET_USER_LOCATION, ADD_USER_POINTS, GET_USER_TOKEN } from '../types';
 
 const initialState = {
   userLocation: undefined,
   points: 0,
+  userToken: undefined,
 };
 
 const userReducer = (state = initialState, action) => {
@@ -17,6 +18,12 @@ const userReducer = (state = initialState, action) => {
       return {
         ...state,
         points: state.points + 1,
+      };
+
+    case GET_USER_TOKEN:
+      return {
+        ...state,
+        userToken: action.payload,
       };
 
     default:
