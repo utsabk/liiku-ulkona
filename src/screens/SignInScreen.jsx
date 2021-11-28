@@ -11,6 +11,7 @@ import { Formik } from 'formik';
 import { useNavigation } from '@react-navigation/native';
 
 import FormikTextInput from '../components/FormikTextInput';
+import { loginUser } from '../services/fetch';
 import theme from '../theme';
 
 const imageBackground = { uri: require('../../assets/outdoor.png') };
@@ -60,7 +61,7 @@ const SignInForm = ({ onSubmit }) => {
       source={imageBackground.uri}
     >
       <View style={styles.container}>
-        <FormikTextInput placeholder="Enter your username" name="username" />
+        <FormikTextInput placeholder="Enter your email" name="email" />
         <FormikTextInput
           placeholder="Enter your password"
           name="password"
@@ -78,15 +79,19 @@ const SignInForm = ({ onSubmit }) => {
 };
 
 const validationSchema = Yup.object().shape({
-  username: Yup.string().required('Username is required'),
+  email: Yup.string().required('Email is required'),
   password: Yup.string().required('Password is required'),
 });
 const SignIn = () => {
-  const onSubmit = (values) => {
-    const username = values.username;
-    const password = values.password;
+  const onSubmit = (values, { resetForm }) => {
+    const fd = {
+      email: values.email,
+      password: values.password,
+    };
 
-    console.log('Username:-', username, 'Password:-', password);
+    loginUser(fd);
+
+    resetForm({ values: '' });
   };
 
   return (

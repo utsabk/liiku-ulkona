@@ -10,6 +10,8 @@ import {
 import { Formik } from 'formik';
 import { useNavigation } from '@react-navigation/native';
 import FormikTextInput from '../components/FormikTextInput';
+import { registerUser } from '../services/fetch';
+
 import theme from '../theme';
 
 const imageBackground = { uri: require('../../assets/outdoor.png') };
@@ -88,26 +90,22 @@ const validationSchema = Yup.object().shape({
   username: Yup.string().required('Username is required'),
   email: Yup.string().required('Email is required'),
   password: Yup.string().required('Password is required'),
-  confirmPassword: Yup.string().required('Can not be blank').oneOf(
-    [Yup.ref('password'), null],
-    'Passwords must match'
-  ),
+  confirmPassword: Yup.string()
+    .required('Can not be blank')
+    .oneOf([Yup.ref('password'), null], 'Passwords must match'),
 });
 
 const Register = () => {
-  const onSubmit = (values) => {
-    const username = values.username;
-    const email = values.email;
-    const password = values.password;
+  const onSubmit = (values, { resetForm }) => {
+    const fd = {
+      username: values.username,
+      email: values.username,
+      password: values.password,
+    };
 
-    console.log(
-      'Username:-',
-      username,
-      'Password:-',
-      password,
-      'Email:-',
-      email
-    );
+    registerUser(fd);
+
+    resetForm({ values: '' });
   };
 
   return (

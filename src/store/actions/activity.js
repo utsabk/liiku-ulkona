@@ -5,9 +5,7 @@ import {
   ADD_TO_FAVUORITES_LIST,
   REMOVE_FROM_FAVUORITES_LIST,
 } from '../types';
-import { customFetch, API_IP, API_PORT } from '../../services/fetch';
-
-const API_URL = `http://${API_IP}:${API_PORT}/activity/`;
+import { customFetch, API_URL } from '../../services/fetch';
 
 export const setState = (action, result) => {
   return {
@@ -20,7 +18,7 @@ export const getActivityTypesList = (query) => {
   return async (dispatch) => {
     try {
       if (query) {
-        const results = await customFetch(`${API_URL}type/?name=${query}`);
+        const results = await customFetch(`${API_URL}/activity/type/?name=${query}`);
         await dispatch(setState(GET_ACTIVITY_TYPES, results));
 
         return results || [];
@@ -35,7 +33,7 @@ export const getActivitiesList = (typeCode) => {
   return async (dispatch) => {
     try {
       if (typeCode) {
-        const results = await customFetch(`${API_URL}code/?code=${typeCode}`);
+        const results = await customFetch(`${API_URL}/activity/code/?code=${typeCode}`);
         if (!results.length) {
           alert('No such activities in this region');
         }
