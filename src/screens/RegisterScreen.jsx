@@ -96,8 +96,11 @@ const RegisterForm = ({ onSubmit }) => {
 
 const validationSchema = Yup.object().shape({
   username: Yup.string().required('Username is required'),
-  email: Yup.string().required('Email is required'),
-  password: Yup.string().required('Password is required'),
+  email: Yup.string()
+    .email('Invalid email format')
+    .max(255)
+    .required('Email is required'),
+  password: Yup.string().min(6).required('Password is required'),
   confirmPassword: Yup.string()
     .required('Can not be blank')
     .oneOf([Yup.ref('password'), null], 'Passwords must match'),
