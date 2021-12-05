@@ -7,6 +7,9 @@ import QRScanScreen from '../screens/QRScanScreen';
 import UserScreen from '../screens/UserScreen';
 import SearchScreen from '../screens/SearchScreen';
 import ActivityDetailsScreen from '../screens/ActivityDetailsScreen';
+import SignInScreen from '../screens/SignInScreen';
+import RegisterScreen from '../screens/RegisterScreen';
+
 import RootHeaderBar from './RootHeaderBar';
 import ActivityHeaderBar from './ActivityHeaderBar';
 
@@ -14,7 +17,10 @@ const Stack = createStackNavigator();
 
 const Routes = () => {
   return (
-    <Stack.Navigator initialRouteName="Home">
+    <Stack.Navigator
+      initialRouteName="Home"
+      screenOptions={{ headerTitleAlign: 'center' }}
+    >
       <Stack.Screen
         name="Home"
         component={HomeScreen}
@@ -33,6 +39,14 @@ const Routes = () => {
         component={SearchScreen}
         options={{ headerShown: false }}
       />
+      <Stack.Screen
+        name="SignIn"
+        component={SignInScreen}
+        options={{
+          title: 'Sign In',
+        }}
+      />
+      <Stack.Screen name="Register" component={RegisterScreen} />
     </Stack.Navigator>
   );
 };
