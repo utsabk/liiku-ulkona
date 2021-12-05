@@ -11,8 +11,7 @@ import { Formik } from 'formik';
 import { useNavigation } from '@react-navigation/native';
 import { useDispatch } from 'react-redux';
 
-
-import { getUserToken } from '../store/actions/user';
+import { getUserData } from '../store/actions/user';
 import FormikTextInput from '../components/FormikTextInput';
 import { registerUser } from '../services/fetch';
 
@@ -55,12 +54,8 @@ const initialValues = {
   confirmPassword: '',
 };
 
-
-
 const RegisterForm = ({ onSubmit }) => {
-  
   const navigation = useNavigation();
-
 
   const handleLoginClick = () => navigation.navigate('SignIn');
 
@@ -84,7 +79,7 @@ const RegisterForm = ({ onSubmit }) => {
           secureTextEntry
         />
         <Pressable onPress={onSubmit} style={styles.signIn}>
-          <Text style={styles.btnText}>SIGN IN</Text>
+          <Text style={styles.btnText}>REGISTER</Text>
         </Pressable>
         <Text style={styles.registerText} onPress={handleLoginClick}>
           Have an account? Signin
@@ -106,25 +101,26 @@ const validationSchema = Yup.object().shape({
     .oneOf([Yup.ref('password'), null], 'Passwords must match'),
 });
 
-const Register = ({navigation}) => {
-
+const Register = ({ navigation }) => {
   const dispatch = useDispatch();
 
   const onSubmit = async (values, { resetForm }) => {
     const fd = {
       username: values.username,
-      email: values.username,
+      email: values.email,
       password: values.password,
     };
 
     const response = await registerUser(fd);
 
+    console.log('response', response);
+
     if (response.token) {
-      dispatch(getUserToken(response.token));
+      dispatch(getUserData(response));
       resetForm({ values: '' });
       navigation.reset({
-        index:0,
-        routes:[{name:'Home'}]
+        index: 0,
+        routes: [{ name: 'Home' }],
       });
       return navigation.navigate('User');
     }

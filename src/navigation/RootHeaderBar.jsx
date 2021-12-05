@@ -27,13 +27,13 @@ const userIcon = () => (
 );
 
 const HeaderBar = ({ navigation }) => {
-  
-  const { userToken } = useSelector((state) => state.user);
 
+  const user = useSelector((state) => state.user.userData);
+  
   const handleQRScan = () => navigation.navigate('QRScan');
   const handleFavourite = () => navigation.navigate('Favourites');
   const handleUser = () =>
-    userToken ? navigation.navigate('User') : navigation.navigate('SignIn');
+    user ? navigation.navigate('User') : navigation.navigate('SignIn');
 
   return (
     <HeaderAppbar>

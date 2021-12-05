@@ -11,7 +11,7 @@ import { Formik } from 'formik';
 import { useNavigation } from '@react-navigation/native';
 import { useDispatch } from 'react-redux';
 
-import { getUserToken } from '../store/actions/user';
+import { getUserData } from '../store/actions/user';
 import FormikTextInput from '../components/FormikTextInput';
 import { loginUser } from '../services/fetch';
 import theme from '../theme';
@@ -96,11 +96,11 @@ const SignIn = ({ navigation }) => {
     const response = await loginUser(fd);
 
     if (response.token) {
-      dispatch(getUserToken(response.token));
+      dispatch(getUserData(response));
       resetForm({ values: '' });
       navigation.reset({
-        index:0,
-        routes:[{name:'Home'}]
+        index: 0,
+        routes: [{ name: 'Home' }],
       });
       return navigation.navigate('User');
     }
