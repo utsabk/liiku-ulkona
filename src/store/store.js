@@ -9,7 +9,7 @@ import userReducer from './reducers/userReducer';
 const persistConfig = {
   key: 'root',
   storage: AsyncStorage,
-  whitelist: ['favourites', 'points', 'userToken'],
+  whitelist: ['favourites', 'userData'],
 };
 
 const rootReducer = combineReducers({

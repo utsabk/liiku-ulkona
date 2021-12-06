@@ -2,8 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { Text, View, StyleSheet, Dimensions } from 'react-native';
 import { BarCodeScanner } from 'expo-barcode-scanner';
 import BarcodeMask from 'react-native-barcode-mask';
-import { useDispatch } from 'react-redux';
-import { addUserPoints } from '../store/actions/user';
+import { useDispatch, useSelector } from 'react-redux';
+import { putUserPoint } from '../store/actions/user';
 
 const { width } = Dimensions.get('window');
 const qrSize = width * 0.7;
@@ -13,6 +13,8 @@ const QRScanScreen = () => {
   const [scanned, setScanned] = useState(false);
 
   const dispatch = useDispatch();
+
+  const { userData } = useSelector((state) => state.user);
 
   useEffect(() => {
     (async () => {
@@ -24,7 +26,7 @@ const QRScanScreen = () => {
   const handleBarCodeScanned = ({ data }) => {
     setScanned(true);
     if (data === 'Helsinki091') {
-      dispatch(addUserPoints());
+      dispatch(putUserPoint(userData));
       return alert(`Point collected, Congratulation!!`);
     }
     alert(`Please scan the correct bar code!`);
