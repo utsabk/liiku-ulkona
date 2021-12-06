@@ -1,6 +1,7 @@
 import React from 'react';
 import { View, StyleSheet } from 'react-native';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { getAllUsers } from '../store/actions/user';
 import * as Progress from 'react-native-progress';
 
 import theme from '../theme';
@@ -19,7 +20,16 @@ const styles = StyleSheet.create({
 });
 
 const UserScreen = () => {
-  const { userData } = useSelector((state) => state.user);
+  const user = useSelector((state) => state.user);
+
+  const { userData, usersList } = user;
+
+   console.log('userList', usersList);
+
+  const dispatch = useDispatch();
+  dispatch(getAllUsers);
+
+  //const { userData } = useSelector((state) => state.user);
 
   return (
     <View style={styles.container}>

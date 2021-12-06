@@ -1,13 +1,14 @@
-
 import {
   GET_USER_LOCATION,
   GET_USER_DATA,
   PUT_USER_POINTS,
+  GET_ALL_USERS,
 } from '../types';
 
 const initialState = {
   userLocation: undefined,
   userData: undefined,
+  usersList: [],
 };
 
 const userReducer = (state = initialState, action) => {
@@ -27,7 +28,13 @@ const userReducer = (state = initialState, action) => {
     case PUT_USER_POINTS:
       return {
         ...state,
-        userData: {...state.userData , points:action.payload,}
+        userData: { ...state.userData, points: action.payload },
+      };
+
+    case GET_ALL_USERS:
+      return {
+        ...state,
+        usersList: action.results,
       };
 
     default:

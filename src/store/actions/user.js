@@ -1,5 +1,10 @@
-import { GET_USER_LOCATION, GET_USER_DATA, PUT_USER_POINTS } from '../types';
-import { API_URL } from '../../services/fetch';
+import {
+  GET_USER_LOCATION,
+  GET_USER_DATA,
+  PUT_USER_POINTS,
+  GET_ALL_USERS,
+} from '../types';
+import { customFetch, API_URL } from '../../services/fetch';
 
 export const getUserLocation = (location) => {
   return {
@@ -12,6 +17,19 @@ export const getUserData = (user) => {
   return {
     type: GET_USER_DATA,
     payload: user,
+  };
+};
+
+export const getAllUsers = () => {
+  return async (dispatch) => {
+    try {
+      const results = await customFetch(`${API_URL}/user/`);
+  
+      await dispatch({ type: GET_ALL_USERS, results });
+      return results || [];
+    } catch (err) {
+      throw new Error(err);
+    }
   };
 };
 
