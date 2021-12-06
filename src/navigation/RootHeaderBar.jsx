@@ -27,10 +27,10 @@ const userIcon = () => (
 );
 
 const HeaderBar = ({ navigation }) => {
-
   const user = useSelector((state) => state.user.userData);
-  
-  const handleQRScan = () => navigation.navigate('QRScan');
+
+  const handleQRScan = () =>
+    user ? navigation.navigate('QRScan') : navigation.navigate('SignIn');
   const handleFavourite = () => navigation.navigate('Favourites');
   const handleUser = () =>
     user ? navigation.navigate('User') : navigation.navigate('SignIn');
