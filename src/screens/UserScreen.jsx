@@ -19,16 +19,16 @@ const styles = StyleSheet.create({
 });
 
 const UserScreen = () => {
-  const points = useSelector((state) => state.user.points);
+  const { userData } = useSelector((state) => state.user);
 
   return (
     <View style={styles.container}>
       <Progress.Circle
         size={300}
-        progress={points / 100 || 0}
+        progress={userData.points / 100 || 0}
         thickness={10}
         showsText
-        formatText={() => points}
+        formatText={() => userData.points}
         borderColor={theme.colors.secondary}
         borderWidth={3}
         color={theme.colors.red}

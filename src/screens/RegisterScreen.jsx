@@ -112,9 +112,7 @@ const Register = ({ navigation }) => {
     };
 
     const response = await registerUser(fd);
-
-    console.log('response', response);
-
+    
     if (response.token) {
       dispatch(getUserData(response));
       resetForm({ values: '' });
