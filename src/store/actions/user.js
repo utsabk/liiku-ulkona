@@ -25,6 +25,8 @@ export const getAllUsers = () => {
     try {
       const results = await customFetch(`${API_URL}/user/`);
   
+      console.log('results',results);
+      
       await dispatch({ type: GET_ALL_USERS, results });
       return results || [];
     } catch (err) {
