@@ -6,12 +6,10 @@ import {
   ImageBackground,
   Platform,
   SafeAreaView,
-  ScrollView,
   StyleSheet,
   TouchableOpacity,
   Text,
   View,
-  Dimensions,
 } from 'react-native';
 
 import { useDispatch, useSelector } from 'react-redux';
@@ -24,8 +22,6 @@ const images = {
   background: { uri: require('../../assets/outdoor.png') },
   profile: { uri: require('../../assets/favicon.png') },
 };
-
-const screenHeight = Dimensions.get('window').height;
 
 const styles = StyleSheet.create({
   headerBackgroundImage: {
@@ -95,9 +91,7 @@ const styles = StyleSheet.create({
     color: theme.colors.white,
     fontWeight: theme.fontWeights.bold,
   },
-  scrollView: {
-    marginBottom: 60,
-  },
+  scrollView: {},
 });
 
 const UserScreen = () => {
@@ -127,7 +121,7 @@ const UserScreen = () => {
   );
 
   return (
-    <View style={{ height: screenHeight }}>
+    <View style={{ flex: 1 }}>
       <ImageBackground
         style={styles.headerBackgroundImage}
         blurRadius={20}
@@ -153,7 +147,7 @@ const UserScreen = () => {
       </TouchableOpacity>
 
       {showLeaderboard && (
-        <ScrollView style={styles.scrollView}>
+        <SafeAreaView style={{ flex: 1 }}>
           <View style={styles.headerTopic}>
             <Text style={styles.headerText}>Ranking</Text>
             <Text style={styles.headerText}>Points</Text>
@@ -166,7 +160,7 @@ const UserScreen = () => {
               keyExtractor={(item) => item._id}
             />
           )}
-        </ScrollView>
+        </SafeAreaView>
       )}
     </View>
   );
