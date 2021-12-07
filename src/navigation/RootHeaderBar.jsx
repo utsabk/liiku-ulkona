@@ -29,8 +29,7 @@ const userIcon = () => (
 const HeaderBar = ({ navigation }) => {
   const user = useSelector((state) => state.user.userData);
 
-  const handleQRScan = () =>
-    user ? navigation.navigate('QRScan') : navigation.navigate('SignIn');
+  const handleQRScan = () => navigation.navigate('QRScan');
   const handleFavourite = () => navigation.navigate('Favourites');
   const handleUser = () =>
     user ? navigation.navigate('User') : navigation.navigate('SignIn');
@@ -38,12 +37,15 @@ const HeaderBar = ({ navigation }) => {
   return (
     <HeaderAppbar>
       <Appbar.Content titleStyle={styles.appBarContent} title="Liiku-ulkona" />
-      <Appbar.Action
-        icon="qrcode-scan"
-        color={theme.colors.secondary}
-        size={28}
-        onPress={handleQRScan}
-      />
+
+      {user && (
+        <Appbar.Action
+          icon="qrcode-scan"
+          color={theme.colors.secondary}
+          size={28}
+          onPress={handleQRScan}
+        />
+      )}
       <Appbar.Action icon={saveIcon} size={30} onPress={handleFavourite} />
       <Appbar.Action icon={userIcon} size={30} onPress={handleUser} />
     </HeaderAppbar>
