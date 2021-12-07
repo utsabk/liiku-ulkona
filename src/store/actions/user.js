@@ -23,7 +23,7 @@ export const getUserData = (user) => {
 export const getAllUsers = () => {
   return async (dispatch) => {
     try {
-      const results = await customFetch(`${API_URL}/user/`);
+      const results = await customFetch(`${API_URL}/users/`);
   
       console.log('results',results);
       
@@ -53,7 +53,7 @@ export const putUserPoint = (user) => {
         };
 
         const upload = await fetch(
-          `${API_URL}/user/${user._id}`,
+          `${API_URL}/users/${user._id}`,
           requestOptions
         );
         const result = await upload.json();

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import * as Yup from 'yup';
 import {
   Text,
@@ -51,7 +51,7 @@ const initialValues = {
   password: '',
 };
 
-const SignInForm = ({ onSubmit }) => {
+const SignInForm = ({ onSubmit, error }) => {
   const navigation = useNavigation();
 
   const handleRegisterClick = () => navigation.navigate('Register');
@@ -63,6 +63,8 @@ const SignInForm = ({ onSubmit }) => {
       source={imageBackground.uri}
     >
       <View style={styles.container}>
+        {error && <Text style={{ fontSize: 20, color: 'red' }}>{error}</Text>}
+
         <FormikTextInput placeholder="Enter your email" name="email" />
         <FormikTextInput
           placeholder="Enter your password"
@@ -85,6 +87,8 @@ const validationSchema = Yup.object().shape({
   password: Yup.string().required('Password is required'),
 });
 const SignIn = ({ navigation }) => {
+  const [errorMessage, setErrorMessage] = useState();
+
   const dispatch = useDispatch();
 
   const onSubmit = async (values, { resetForm }) => {
@@ -104,6 +108,9 @@ const SignIn = ({ navigation }) => {
       });
       return navigation.navigate('User');
     }
+    if (response.error) {
+      return setErrorMessage(response.error);
+    }
   };
 
   return (
@@ -112,7 +119,9 @@ const SignIn = ({ navigation }) => {
       onSubmit={onSubmit}
       validationSchema={validationSchema}
     >
-      {({ handleSubmit }) => <SignInForm onSubmit={handleSubmit} />}
+      {({ handleSubmit }) => (
+        <SignInForm error={errorMessage} onSubmit={handleSubmit} />
+      )}
     </Formik>
   );
 };

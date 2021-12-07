@@ -42,7 +42,7 @@ const styles = StyleSheet.create({
     }),
   },
   emailIcon: {
-    color: theme.colors.white,
+    color: theme.colors.secondary,
     fontSize: 24,
   },
   userEmailRow: {
@@ -50,7 +50,8 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
   },
   userEmail: {
-    color: '#A5A5A5',
+    color: theme.colors.white,
+    textDecorationLine:'underline',
     fontSize: 18,
     fontWeight: theme.fontWeights.bold,
     textAlign: 'center',
@@ -101,6 +102,7 @@ const UserScreen = () => {
 
   const { userData, usersList } = user;
 
+  // Sort users in a descending order, although response is already sorted
   const sortedList =
     usersList.length > 0 &&
     usersList.sort((a, b) => parseFloat(b.points) - parseFloat(a.points));
