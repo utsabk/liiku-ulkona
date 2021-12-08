@@ -27,6 +27,7 @@ const userIcon = () => (
 );
 
 const HeaderBar = ({ navigation }) => {
+  
   const user = useSelector((state) => state.user.userData);
 
   const handleQRScan = () => navigation.navigate('QRScan');

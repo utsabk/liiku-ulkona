@@ -22,6 +22,9 @@ const styles = StyleSheet.create({
 const HeaderBar = ({ navigation }) => {
   const dispatch = useDispatch();
 
+  const user = useSelector((state) => state.user.userData);
+
+
   const { activityDetails } = useSelector((state) => {
     return {
       activityDetails: state.activity.activityDetails,
@@ -53,7 +56,9 @@ const HeaderBar = ({ navigation }) => {
     return false;
   };
 
-  const handleUser = () => navigation.navigate('User');
+  const handleUser = () =>
+    user ? navigation.navigate('User') : navigation.navigate('SignIn');
+
   const handleBackPress = () => navigation.navigate('Home');
 
   return (
