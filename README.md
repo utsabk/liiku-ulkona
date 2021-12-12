@@ -49,7 +49,11 @@ Liiku Ulkona is an application to promote and help people exercise/train for fre
 <!-- GETTING STARTED -->
 ## Getting started
 
-### Clone
+### Liiku-ulkona-api
+First of all, set up the **Liiku-ulkona-api** server by following the setup instructions in the repository's [README](https://github.com/utsabk/liiku-ulkona-api) .
+
+### Liiku-ulkona-app
+#### Clone
 ```sh
 git clone git@github.com:utsabk/liiku-ulkona-app.git
 cd liiku-ulkona-app
